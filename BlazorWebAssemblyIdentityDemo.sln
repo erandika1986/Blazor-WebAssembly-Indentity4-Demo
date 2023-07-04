@@ -9,21 +9,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{FE9C3AAB-6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{BCFF0B0A-D135-4C2A-95FD-80BB7391D760}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssemblyIndentityDemo.OAuth", "src\Web\BlazorWebAssemblyIndentityDemo.OAuth\BlazorWebAssemblyIndentityDemo.OAuth.csproj", "{026480F3-B858-4D64-A4A4-58F70E2FBEB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssemblyIdentityDemo.OAuth", "src\Web\BlazorWebAssemblyIndentityDemo.OAuth\BlazorWebAssemblyIdentityDemo.OAuth.csproj", "{026480F3-B858-4D64-A4A4-58F70E2FBEB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebAssemblyIndentityDemo.BlazorApp", "src\Web\BlazorWebAssemblyIndentityDemo.BlazorApp\BlazorWebAssemblyIndentityDemo.BlazorApp.csproj", "{4569414B-35FC-4856-8C9A-78718150290F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssemblyIdentityDemo.BlazorApp", "src\Web\BlazorWebAssemblyIndentityDemo.BlazorApp\BlazorWebAssemblyIdentityDemo.BlazorApp.csproj", "{4569414B-35FC-4856-8C9A-78718150290F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebAssemblyIndentityDemo.WebApi", "src\Web\BlazorWebAssemblyIndentityDemo.WebApi\BlazorWebAssemblyIndentityDemo.WebApi.csproj", "{19B36412-3DBA-4A2A-AB72-1BB9888B9A13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssemblyIdentityDemo.WebApi", "src\Web\BlazorWebAssemblyIndentityDemo.WebApi\BlazorWebAssemblyIdentityDemo.WebApi.csproj", "{19B36412-3DBA-4A2A-AB72-1BB9888B9A13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebAssemblyIndentityDemo.Domain", "src\Core\BlazorWebAssemblyIndentityDemo.Domain\BlazorWebAssemblyIndentityDemo.Domain.csproj", "{5C6ED842-2681-4138-805B-45A6BF320BF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssemblyIdentityDemo.Domain", "src\Core\BlazorWebAssemblyIndentityDemo.Domain\BlazorWebAssemblyIdentityDemo.Domain.csproj", "{5C6ED842-2681-4138-805B-45A6BF320BF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebAssemblyIndentityDemo.Application", "src\Core\BlazorWebAssemblyIndentityDemo.Application\BlazorWebAssemblyIndentityDemo.Application.csproj", "{122C2DBA-F60D-427A-9A0F-4F89EACCF492}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssemblyIdentityDemo.Application", "src\Core\BlazorWebAssemblyIndentityDemo.Application\BlazorWebAssemblyIdentityDemo.Application.csproj", "{122C2DBA-F60D-427A-9A0F-4F89EACCF492}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebAssemblyIndentityDemo.Infrastructure", "src\Infrastructure\BlazorWebAssemblyIndentityDemo.Infrastructure\BlazorWebAssemblyIndentityDemo.Infrastructure.csproj", "{BCD49222-012E-45BE-B465-107A19115B01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssemblyIdentityDemo.Infrastructure", "src\Infrastructure\BlazorWebAssemblyIndentityDemo.Infrastructure\BlazorWebAssemblyIdentityDemo.Infrastructure.csproj", "{BCD49222-012E-45BE-B465-107A19115B01}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{F5B2B117-486D-492F-A0D9-91E5128BAE78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebAssemblyIndentityDemo.Shared", "src\Shared\BlazorWebAssemblyIndentityDemo.Shared\BlazorWebAssemblyIndentityDemo.Shared.csproj", "{5C5C3694-4268-4C7E-8DE5-B8E6480C1D98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssemblyIdentityDemo.Shared", "src\Shared\BlazorWebAssemblyIndentityDemo.Shared\BlazorWebAssemblyIdentityDemo.Shared.csproj", "{5C5C3694-4268-4C7E-8DE5-B8E6480C1D98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

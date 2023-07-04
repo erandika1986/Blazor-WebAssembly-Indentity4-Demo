@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace BlazorWebAssemblyIndentityDemo.WebApi.Controllers
+namespace BlazorWebAssemblyIdentityDemo.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]

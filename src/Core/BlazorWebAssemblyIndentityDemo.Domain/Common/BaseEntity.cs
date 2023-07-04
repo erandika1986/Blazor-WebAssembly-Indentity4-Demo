@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlazorWebAssemblyIndentityDemo.Domain.Common
+namespace BlazorWebAssemblyIdentityDemo.Domain.Common
 {
     public abstract class BaseEntity
     {

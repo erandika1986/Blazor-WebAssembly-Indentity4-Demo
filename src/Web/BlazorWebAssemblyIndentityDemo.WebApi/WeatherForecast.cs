@@ -1,4 +1,4 @@
-namespace BlazorWebAssemblyIndentityDemo.WebApi
+namespace BlazorWebAssemblyIdentityDemo.WebApi
 {
     public class WeatherForecast
     {
