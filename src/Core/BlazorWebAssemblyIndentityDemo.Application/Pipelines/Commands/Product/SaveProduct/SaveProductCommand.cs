@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BlazorWebAssemblyIdentityDemo.Shared.DTO;
 using BlazorWebAssemblyIdentityDemo.Domain.Entities;
 using BlazorWebAssemblyIdentityDemo.Domain.Repositories.Queries;
 using BlazorWebAssemblyIdentityDemo.Shared.DTO.Product;
@@ -9,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlazorWebAssemblyIdentityDemo.Shared.DTO.Common;
 
 namespace BlazorWebAssemblyIdentityDemo.Domain.Repositories.Commands.Product.SaveProduct
 {
