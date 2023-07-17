@@ -1,5 +1,6 @@
 using BlazorWebAssemblyIdentityDemo.ManageUserApi;
 using BlazorWebAssemblyIdentityDemo.ManageUserApi.Extensions;
+using Dynami.IdentityServer4.Services;
 using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ builder.Services.AddWebAPIServices(builder.Configuration);
 //        opt.Authority = "https://localhost:5005";
 //        opt.Audience = "userApi";
 //    });
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -43,6 +45,8 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
     ForwardedHeaders = ForwardedHeaders.All
 });
+
+
 
 app.UseRouting();
 

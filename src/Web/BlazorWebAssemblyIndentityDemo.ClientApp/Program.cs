@@ -17,12 +17,20 @@ builder.Services.AddHttpClient("usersAPI", cl =>
 })
 .AddHttpMessageHandler<CustomAuthorizationMessageHandler>();
 
+
+builder.Services.AddHttpClient("identityAPI", cl =>
+{
+    cl.BaseAddress = new Uri("https://localhost:5005/api/");
+});
+
+
 builder.Services.AddHttpClient("userAPI.Unauthorized", cl =>
 {
     cl.BaseAddress = new Uri("https://localhost:5001/api/");
 });
 
 builder.Services.AddScoped(sp => sp.GetService<IHttpClientFactory>().CreateClient("usersAPI"));
+//builder.Services.AddScoped(sp => sp.GetService<IHttpClientFactory>().CreateClient("identityAPI"));
 
 builder.Services.AddOidcAuthentication(options =>
 {

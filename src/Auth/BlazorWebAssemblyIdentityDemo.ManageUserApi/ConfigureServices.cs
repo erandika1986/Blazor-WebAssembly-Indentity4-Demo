@@ -1,6 +1,11 @@
 ﻿using BlazorWebAssemblyIdentityDemo.OAuth.Data;
+using BlazorWebAssemblyIdentityDemo.OAuth.Model;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace BlazorWebAssemblyIdentityDemo.ManageUserApi
@@ -13,7 +18,19 @@ namespace BlazorWebAssemblyIdentityDemo.ManageUserApi
 
 
             services.AddDbContext<AuthIdentityContext>(options =>
-    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentityCore<User>(options => { });
+            new IdentityBuilder(typeof(User), typeof(IdentityRole), services)
+                .AddRoleManager<RoleManager<IdentityRole>>()
+                .AddSignInManager<SignInManager<User>>()
+                .AddEntityFrameworkStores<AuthIdentityContext>();
+
+            //services.AddTransient<AuthIdentityContextSeed>();
+
+
+
+
 
 
             services.AddCors(options =>
@@ -31,12 +48,16 @@ namespace BlazorWebAssemblyIdentityDemo.ManageUserApi
             });
 
             services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", opt =>
+                .AddJwtBearer("Bearer", options =>
                 {
-                    opt.RequireHttpsMetadata = false;
-                    opt.Authority = "https://localhost:5005";
-                    opt.Audience = "userApi";
+                    options.Authority = "https://localhost:5005"; // Your IdentityServer4 authority URL
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false // Your API audience validation if needed
+                    };
                 });
+
+
 
             services.AddSwaggerGen(options =>
             {

@@ -72,7 +72,7 @@ namespace BlazorWebAssemblyIdentityDemo.OAuth.Configuration
                     ClientId = "product-store",
                     ClientSecrets = new [] { new Secret("dynamiIdentity4ProductAPIDemo".Sha512()) },
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
-                    AllowedScopes = { IdentityServerConstants.StandardScopes.OpenId, "userApi" }
+                    AllowedScopes = { IdentityServerConstants.StandardScopes.OpenId, "productApi" }
                 },
                 new Client
                 {
@@ -91,11 +91,16 @@ namespace BlazorWebAssemblyIdentityDemo.OAuth.Configuration
                     RequirePkce = true,
                     RequireClientSecret = false,
                     AllowedCorsOrigins = { "https://localhost:5020" },
+                    AllowAccessTokensViaBrowser = true,
+                    AlwaysIncludeUserClaimsInIdToken = true,
+                    AlwaysSendClientClaims = true,
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "userApi"
+                        "productApi",
+                        "userApi",
+                        IdentityServerConstants.LocalApi.ScopeName
                     },
                     RedirectUris = { "https://localhost:5020/authentication/login-callback" },
                     PostLogoutRedirectUris = { "https://localhost:5020/authentication/logout-callback" }
@@ -105,18 +110,23 @@ namespace BlazorWebAssemblyIdentityDemo.OAuth.Configuration
         public static IEnumerable<ApiScope> GetApiScopes() =>
             new List<ApiScope> 
             { 
+                new ApiScope("productApi"),
                 new ApiScope("userApi"),
-                //new ApiScope("UserAPI.write"),
                 //new ApiScope("productApi", "Product Store API"),
             };
 
         public static IEnumerable<ApiResource> GetApiResources() =>
             new List<ApiResource>
             {
+                new ApiResource("productApi")
+                {
+                    Scopes = new List<string>{ "productApi" }
+                },
                 new ApiResource("userApi")
                 {
                     Scopes = new List<string>{ "userApi" }
-                }
+                },
+                new ApiResource(IdentityServerConstants.LocalApi.ScopeName),
             };
     }
 }

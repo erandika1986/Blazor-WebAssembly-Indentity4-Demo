@@ -19,6 +19,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlazorWebAssemblyIdentityDemo.OAuth.Model;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using static Dynami.IdentityServer4.IdentityServerConstants;
+using Newtonsoft.Json;
 
 namespace IdentityServerHost.Quickstart.UI
 {
@@ -32,6 +35,7 @@ namespace IdentityServerHost.Quickstart.UI
     public class AccountController : Controller
     {
         private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
@@ -42,13 +46,16 @@ namespace IdentityServerHost.Quickstart.UI
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
-            SignInManager<User> signInManager)
+            SignInManager<User> signInManager,
+            UserManager<User> userManager)
         {
             _interaction = interaction;
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
             _signInManager = signInManager;
+            _userManager = userManager;
+
         }
 
         /// <summary>
@@ -116,6 +123,7 @@ namespace IdentityServerHost.Quickstart.UI
 
                     if (userLogin == Microsoft.AspNetCore.Identity.SignInResult.Success)
                     {
+                        var user1 = await _userManager.FindByNameAsync(model.Username);
                         await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id, user.UserName, clientId: context?.Client.ClientId));
 
                         // only set explicit expiration here if user chooses "remember me". 
@@ -236,6 +244,18 @@ namespace IdentityServerHost.Quickstart.UI
         public IActionResult AccessDenied()
         {
             return View();
+        }
+
+        [HttpGet]
+        //[Authorize(LocalApi.PolicyName)]
+        [Route("api/account/privacy")]
+        public IActionResult Privacy()
+        {
+           var u = HttpContext.User;
+            var claims = User.Claims.Select(c => $"{c.Type}: {c.Value}").ToList();
+            string json = JsonConvert.SerializeObject(claims, Formatting.Indented);
+
+            return Ok(json);
         }
 
 

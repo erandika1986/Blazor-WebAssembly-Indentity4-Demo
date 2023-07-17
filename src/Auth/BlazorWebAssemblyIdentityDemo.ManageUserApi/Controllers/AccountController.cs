@@ -27,59 +27,59 @@ namespace BlazorWebAssemblyIdentityDemo.ManageUserApi.Controllers
             this._roleManager = roleManager;
         }
 
-        [HttpPost("Registration")]
-        [Authorize]
-        public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
-        {
-            if (userForRegistration == null || !ModelState.IsValid)
-                return BadRequest();
+        //[HttpPost("Registration")]
+        //[Authorize]
+        //public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
+        //{
+        //    if (userForRegistration == null || !ModelState.IsValid)
+        //        return BadRequest();
 
-            var user = new User 
-            { 
-                FirstName = userForRegistration.FirstName,
-                LastName = userForRegistration.LastName,
-                UserName = userForRegistration.Email, 
-                Email = userForRegistration.Email,
-                Position = userForRegistration.Position,
-                EmailConfirmed = true
-            };
+        //    var user = new User 
+        //    { 
+        //        FirstName = userForRegistration.FirstName,
+        //        LastName = userForRegistration.LastName,
+        //        UserName = userForRegistration.Email, 
+        //        Email = userForRegistration.Email,
+        //        Position = userForRegistration.Position,
+        //        EmailConfirmed = true
+        //    };
 
-            var claims = new List<Claim>()
-            {
-                new Claim(JwtClaimTypes.Name, $"{userForRegistration.FirstName} {userForRegistration.LastName}"),
-                new Claim(JwtClaimTypes.GivenName, userForRegistration.FirstName),
-                new Claim(JwtClaimTypes.FamilyName, userForRegistration.LastName),
-                new Claim(JwtClaimTypes.WebSite, "http://demo.com"),
-                new Claim("position", EnumHelper.GetEnumDescription(userForRegistration.Position)),
-                new Claim("country", userForRegistration.Country)
-            };
+        //    var claims = new List<Claim>()
+        //    {
+        //        new Claim(JwtClaimTypes.Name, $"{userForRegistration.FirstName} {userForRegistration.LastName}"),
+        //        new Claim(JwtClaimTypes.GivenName, userForRegistration.FirstName),
+        //        new Claim(JwtClaimTypes.FamilyName, userForRegistration.LastName),
+        //        new Claim(JwtClaimTypes.WebSite, "http://demo.com"),
+        //        new Claim("position", EnumHelper.GetEnumDescription(userForRegistration.Position)),
+        //        new Claim("country", userForRegistration.Country)
+        //    };
 
-            var result = await _userManager.CreateAsync(user, userForRegistration.Password);
+        //    var result = await _userManager.CreateAsync(user, userForRegistration.Password);
 
-            if (!result.Succeeded)
-            {
-                var errors = result.Errors.Select(e => e.Description).ToList();
-                return BadRequest(ResponseDto.Failure(errors));
-            }
+        //    if (!result.Succeeded)
+        //    {
+        //        var errors = result.Errors.Select(e => e.Description).ToList();
+        //        return BadRequest(ResponseDto.Failure(errors));
+        //    }
 
-            foreach(var roleId in userForRegistration.AssignedRoleIds)
-            {
-                var role = await _roleManager.FindByIdAsync(roleId);
+        //    foreach(var roleId in userForRegistration.AssignedRoleIds)
+        //    {
+        //        var role = await _roleManager.FindByIdAsync(roleId);
 
-                claims.Add(new Claim(JwtClaimTypes.Role, role.Name));
+        //        claims.Add(new Claim(JwtClaimTypes.Role, role.Name));
 
-                await _userManager.AddToRoleAsync(user, role.Name);
-            }
+        //        await _userManager.AddToRoleAsync(user, role.Name);
+        //    }
 
-            result = _userManager.AddClaimsAsync(user, claims).Result;
+        //    result = _userManager.AddClaimsAsync(user, claims).Result;
 
-            if (!result.Succeeded)
-            {
-                throw new Exception(result.Errors.First().Description);
-            }
+        //    if (!result.Succeeded)
+        //    {
+        //        throw new Exception(result.Errors.First().Description);
+        //    }
 
-            return StatusCode(201);
-        }
+        //    return StatusCode(201);
+        //}
 
         [HttpGet("unauthorized")]
         public IActionResult UnauthorizedTestAction() =>
@@ -87,7 +87,7 @@ namespace BlazorWebAssemblyIdentityDemo.ManageUserApi.Controllers
 
 
         [HttpGet("Privacy")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public IEnumerable<string> Privacy()
         {
             var claims = User.Claims.Select(c => $"{c.Type}: {c.Value}").ToList();
