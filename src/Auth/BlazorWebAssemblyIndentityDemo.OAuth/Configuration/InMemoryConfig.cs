@@ -14,6 +14,7 @@ namespace BlazorWebAssemblyIdentityDemo.OAuth.Configuration
             new IdentityResources.OpenId(),
             new IdentityResources.Profile(),
             new IdentityResources.Address(),
+            new IdentityResource("subject", "User subject", new List<string> { "subject" }),
             new IdentityResource("roles", "User role(s)", new List<string> { "role" }),
             new IdentityResource("position", "Your position", new List<string> { "position" }),
             new IdentityResource("country", "Your country", new List<string> { "country" })

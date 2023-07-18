@@ -102,7 +102,8 @@ namespace BlazorWebAssemblyIdentityDemo.OAuth.Data
                             new Claim(JwtClaimTypes.WebSite, "http://admin.com"),
                             new Claim(JwtClaimTypes.Role, adminRole.Name),
                             new Claim("position", adminRole.Name),
-                            new Claim("country", "USA")
+                            new Claim("country", "USA"),
+                            new Claim("subject", adminUser.Id),
                         }).Result;
                 if (!result.Succeeded)
                 {

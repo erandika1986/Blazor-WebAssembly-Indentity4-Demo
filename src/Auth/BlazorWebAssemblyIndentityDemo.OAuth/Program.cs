@@ -55,16 +55,7 @@ builder.Services.AddIdentityServer(options =>
 
 builder.Services.AddScoped<IProfileService, ProfileService>();
 
-builder.Services.AddLocalApiAuthentication();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("CorsPolicy",
-        builder =>
-            builder.AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader());
-});
 
 builder.Services.AddAuthorization(options =>
 {
@@ -72,19 +63,9 @@ builder.Services.AddAuthorization(options =>
     {
         policy.AddAuthenticationSchemes(IdentityServerConstants.LocalApi.AuthenticationScheme);
         policy.RequireAuthenticatedUser();
-        // custom requirements
+
     });
 });
-
-//builder.Services.AddIdentityServer()
-//                .AddInMemoryApiScopes(InMemoryConfig.GetApiScopes())
-//                .AddInMemoryApiResources(InMemoryConfig.GetApiResources())
-//                .AddInMemoryIdentityResources(InMemoryConfig.GetIdentityResources())
-//                .AddInMemoryClients(InMemoryConfig.GetClients())
-//                .AddTestUsers(InMemoryConfig.GetUsers())
-//                .AddDeveloperSigningCredential()
-//                .AddProfileService<CustomProfileService>();
-
 
 
 var app = builder.Build();

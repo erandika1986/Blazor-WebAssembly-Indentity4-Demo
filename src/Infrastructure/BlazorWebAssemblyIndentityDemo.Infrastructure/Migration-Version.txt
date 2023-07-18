@@ -1,3 +1,0 @@
-﻿Add-Migration Demo00001 -Project BlazorWebAssemblyIndentityDemo.Infrastructure -StartUp BlazorWebAssemblyIndentityDemo.WebApi -Verbose
-
-Update-Database -Project BlazorWebAssemblyIndentityDemo.Infrastructure -StartUp BlazorWebAssemblyIndentityDemo.WebApi -Verbose
