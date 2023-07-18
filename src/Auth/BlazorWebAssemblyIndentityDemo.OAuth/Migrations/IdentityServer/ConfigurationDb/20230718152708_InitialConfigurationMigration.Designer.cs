@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorWebAssemblyIdentityDemo.OAuth.Migrations.IdentityServer.ConfigurationDb
 {
     [DbContext(typeof(ConfigurationDbContext))]
-    [Migration("20230713102758_InitialConfigurationMigration")]
+    [Migration("20230718152708_InitialConfigurationMigration")]
     partial class InitialConfigurationMigration
     {
         /// <inheritdoc />

@@ -1,7 +1,10 @@
-﻿using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.ProductCategory.GetAllProductCategories;
+﻿using BlazorWebAssemblyIdentityDemo.Product.Application.Contracts;
+using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.ProductCategory.GetAllProductCategories;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace BlazorWebAssemblyIdentityDemo.Product.WebApi.Controllers
 {
@@ -10,10 +13,12 @@ namespace BlazorWebAssemblyIdentityDemo.Product.WebApi.Controllers
     public class ProductCategoryController : ControllerBase
     {
         private IMediator _mediator;
+        private ICurrentUserService _currentUserService;
 
-        public ProductCategoryController(IMediator mediator)
+        public ProductCategoryController(IMediator mediator, ICurrentUserService currentUserService)
         {
             this._mediator = mediator;
+            this._currentUserService = currentUserService;
         }
 
         [HttpGet("getAllProductCategories")]
@@ -22,6 +27,15 @@ namespace BlazorWebAssemblyIdentityDemo.Product.WebApi.Controllers
             var response = await _mediator.Send(new GetAllProductCategoriesQuery());
 
             return Ok(response);
+        }
+
+        [HttpGet("Privacy")]
+        [Authorize(Roles = "Administrator")]
+        public IEnumerable<string> Privacy()
+        {
+            var id = _currentUserService.UserId;
+            var claims = User.Claims.Select(c => $"{c.Type}: {c.Value}").ToList();
+            return claims;
         }
     }
 }

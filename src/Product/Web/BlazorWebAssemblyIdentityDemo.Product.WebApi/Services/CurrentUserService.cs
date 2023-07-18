@@ -20,7 +20,7 @@ namespace BlazorWebAssemblyIdentityDemo.Product.WebApi.Services
 
                 try
                 {
-                    return _httpContextAccessor.HttpContext.User?.FindFirstValue(ClaimTypes.Sid);
+                    return _httpContextAccessor.HttpContext.User?.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
                 }
                 catch (Exception ex)
                 {

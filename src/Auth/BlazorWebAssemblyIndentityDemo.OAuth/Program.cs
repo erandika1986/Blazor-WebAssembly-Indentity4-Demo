@@ -25,7 +25,7 @@ var migrationAssembly = typeof(Program).GetTypeInfo().Assembly.GetName().Name;
 builder.Services.AddDbContext<AuthIdentityContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<User, IdentityRole>()
+builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<AuthIdentityContext>().AddDefaultTokenProviders(); 
 
 builder.Services.AddTransient<AuthIdentityContextSeed>();

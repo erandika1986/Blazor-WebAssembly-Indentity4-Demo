@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorWebAssemblyIdentityDemo.OAuth.Migrations.IdentityServer.PersistedGrantDb
 {
     [DbContext(typeof(PersistedGrantDbContext))]
-    [Migration("20230713102743_InitialPersistedGranMigration")]
+    [Migration("20230718152655_InitialPersistedGranMigration")]
     partial class InitialPersistedGranMigration
     {
         /// <inheritdoc />

@@ -32,6 +32,11 @@ namespace BlazorWebAssemblyIdentityDemo.OAuth.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Position = table.Column<int>(type: "int", nullable: true),
+                    RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RefreshTokenExpiryTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -129,13 +134,13 @@ namespace BlazorWebAssemblyIdentityDemo.OAuth.Data.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -163,8 +168,8 @@ namespace BlazorWebAssemblyIdentityDemo.OAuth.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "b58e8799-5031-4c70-8682-8045e5d2e136", null, "Viewer", "VIEWER" },
-                    { "d8f74c14-c401-4773-bbe2-a2a202bfc3d9", null, "Administrator", "ADMINISTRATOR" }
+                    { "087a62b1-98a4-4718-8435-059d9c61fc81", null, "Viewer", "VIEWER" },
+                    { "526a8209-1bdc-4621-8e06-679b2a7d707e", null, "Administrator", "ADMINISTRATOR" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -21,8 +21,8 @@ namespace BlazorWebAssemblyIdentityDemo.ManageUserApi
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentityCore<User>(options => { });
-            new IdentityBuilder(typeof(User), typeof(IdentityRole), services)
-                .AddRoleManager<RoleManager<IdentityRole>>()
+            new IdentityBuilder(typeof(User), typeof(Role), services)
+                .AddRoleManager<RoleManager<Role>>()
                 .AddSignInManager<SignInManager<User>>()
                 .AddEntityFrameworkStores<AuthIdentityContext>();
 

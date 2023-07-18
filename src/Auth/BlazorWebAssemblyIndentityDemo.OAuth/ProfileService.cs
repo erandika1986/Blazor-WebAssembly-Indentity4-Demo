@@ -12,11 +12,11 @@ namespace BlazorWebAssemblyIdentityDemo.OAuth
     {
         private readonly IUserClaimsPrincipalFactory<User> _userClaimsPrincipalFactory;
         private readonly UserManager<User> _userMgr;
-        private readonly RoleManager<IdentityRole> _roleMgr;
+        private readonly RoleManager<Role> _roleMgr;
 
         public ProfileService(
             UserManager<User> userMgr,
-            RoleManager<IdentityRole> roleMgr,
+            RoleManager<Role> roleMgr,
             IUserClaimsPrincipalFactory<User> userClaimsPrincipalFactory)
         {
             _userMgr = userMgr;
@@ -41,7 +41,7 @@ namespace BlazorWebAssemblyIdentityDemo.OAuth
                     claims.Add(new Claim(JwtClaimTypes.Role, roleName));
                     if (_roleMgr.SupportsRoleClaims)
                     {
-                        IdentityRole role = await _roleMgr.FindByNameAsync(roleName);
+                        Role role = await _roleMgr.FindByNameAsync(roleName);
                         if (role != null)
                         {
                             claims.AddRange(await _roleMgr.GetClaimsAsync(role));

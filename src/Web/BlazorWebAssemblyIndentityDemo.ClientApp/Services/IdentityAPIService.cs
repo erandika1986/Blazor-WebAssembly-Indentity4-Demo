@@ -2,16 +2,16 @@
 {
     public class IdentityAPIService
     {
-        private readonly HttpClient httpClient;
+        //private readonly HttpClient httpClient;
 
-        public IdentityAPIService(HttpClient httpClient)
-        {
-            this.httpClient = httpClient;
-        }
+        //public IdentityAPIService(HttpClient httpClient)
+        //{
+        //    this.httpClient = httpClient;
+        //}
 
-        public string GetBaseUrl()
-        {
-            return httpClient.BaseAddress.ToString();
-        }
+        //public string GetBaseUrl()
+        //{
+        //    return httpClient.BaseAddress.ToString();
+        //}
     }
 }

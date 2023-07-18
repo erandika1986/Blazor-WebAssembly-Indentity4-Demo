@@ -17,13 +17,13 @@ namespace BlazorWebAssemblyIdentityDemo.OAuth.Data
     {
         private readonly ILogger<AuthIdentityContextSeed> _logger;
         private readonly UserManager<User> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly AuthIdentityContext _context;
 
         public AuthIdentityContextSeed(
             ILogger<AuthIdentityContextSeed> logger, 
             UserManager<User> userManager, 
-            RoleManager<IdentityRole> roleManager,
+            RoleManager<Role> roleManager,
             AuthIdentityContext context)
         {
             this._logger = logger;

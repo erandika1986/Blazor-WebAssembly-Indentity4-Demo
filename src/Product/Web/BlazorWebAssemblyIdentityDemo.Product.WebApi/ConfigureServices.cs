@@ -37,7 +37,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 {
                     opt.RequireHttpsMetadata = false;
                     opt.Authority = "https://localhost:5005";
-                    opt.Audience = "companyApi";
+                    opt.Audience = "productApi";
                 });
 
             services.AddSwaggerGen(options =>

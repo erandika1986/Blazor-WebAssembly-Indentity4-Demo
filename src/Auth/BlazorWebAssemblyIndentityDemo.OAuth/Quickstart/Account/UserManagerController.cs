@@ -17,9 +17,9 @@ namespace BlazorWebAssemblyIdentityDemo.OAuth.Quickstart.Account
     public class UserManagerController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<Role> _roleManager;
 
-        public UserManagerController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public UserManagerController(UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             this._userManager = userManager;
             this._roleManager = roleManager;

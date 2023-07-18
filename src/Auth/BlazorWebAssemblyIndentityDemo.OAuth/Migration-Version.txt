@@ -1,5 +1,6 @@
 ﻿Add-Migration Identity00001 -c AuthIdentityContext -Project BlazorWebAssemblyIdentityDemo.OAuth.Data -StartUp BlazorWebAssemblyIdentityDemo.OAuth -Verbose
 Add-Migration Identity00002 -c AuthIdentityContext -Project BlazorWebAssemblyIdentityDemo.OAuth.Data -StartUp BlazorWebAssemblyIdentityDemo.OAuth -Verbose
+Add-Migration Identity00003 -c AuthIdentityContext -Project BlazorWebAssemblyIdentityDemo.OAuth.Data -StartUp BlazorWebAssemblyIdentityDemo.OAuth -Verbose
 
 PM> Add-Migration InitialPersistedGranMigration -c PersistedGrantDbContext -o Migrations/IdentityServer/PersistedGrantDb
 PM> Add-Migration InitialConfigurationMigration -c ConfigurationDbContext -o Migrations/IdentityServer/ConfigurationDb

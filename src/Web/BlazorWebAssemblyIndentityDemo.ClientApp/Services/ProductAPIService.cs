@@ -2,16 +2,16 @@
 {
     public class ProductAPIService
     {
-        private readonly HttpClient httpClient;
+        //private readonly HttpClient httpClient;
 
-        public ProductAPIService(HttpClient httpClient)
-        {
-            this.httpClient = httpClient;
-        }
+        //public ProductAPIService(HttpClient httpClient)
+        //{
+        //    this.httpClient = httpClient;
+        //}
 
-        public string GetBaseUrl()
-        {
-            return httpClient.BaseAddress.ToString();
-        }
+        //public string GetBaseUrl()
+        //{
+        //    return httpClient.BaseAddress.ToString();
+        //}
     }
 }

@@ -9,8 +9,8 @@ namespace BlazorWebAssemblyIndentityDemo.ClientApp.MessageHandler
         : base(provider, navigation)
         {
             ConfigureHandler(
-                        authorizedUrls: new[] { "https://localhost:5001" },
-                        scopes: new[] { "userApi" });
+                        authorizedUrls: new[] { "https://localhost:5001", "https://localhost:5002" },
+                        scopes: new[] { "userApi" ,"productApi"});
         }
     }
 }
