@@ -131,6 +131,40 @@ namespace BlazorWebAssemblyIdentityDemo.ManageUserApi.Controllers
         }
 
 
+        [HttpGet("getUserMasterData")]
+        public async Task<IActionResult> GetUserMasterData()
+        {
+            var masterData = new UserMasterDto();
+
+            var roles = await _context
+                .Roles
+                .Select(x => 
+                    new DropDownDto() 
+                    { 
+                        Id = x.Id,
+                        Name = x.Name 
+                    }).ToListAsync();
+
+            masterData.Roles.AddRange(roles);
+
+            foreach (Position position in (Position[])Enum.GetValues(typeof(Position)))
+            {
+                masterData
+                    .Positions
+                    .Add(
+                            new DropDownDto() 
+                            { 
+                                Id = ((int)position).ToString(), 
+                                Name = EnumHelper.GetEnumDescription(position) 
+                            });
+            }
+
+            masterData.SortBy.Add(new DropDownDto() { Id = "firstName", Name = "First Name" });
+            masterData.SortBy.Add(new DropDownDto() { Id = "lastName", Name = "Last Name" });
+            masterData.SortBy.Add(new DropDownDto() { Id = "position", Name = "Position" });
+
+            return Ok(masterData);
+        }
 
 
         [HttpGet("unauthorized")]

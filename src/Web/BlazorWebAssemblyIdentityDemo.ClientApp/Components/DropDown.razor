@@ -1,0 +1,11 @@
+﻿<section>
+    <select class="form-control" @onchange="SelectedItemChanged">
+        <option value="-1">@DefaultValue</option>
+        @foreach (var item in Items)
+        {
+            <option value="@item.Id">@item.Name</option>
+        }
+    </select>
+</section>
+
+

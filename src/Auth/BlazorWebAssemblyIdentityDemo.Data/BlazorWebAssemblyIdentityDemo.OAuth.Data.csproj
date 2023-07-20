@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\BlazorWebAssemblyIndentityDemo.Shared\BlazorWebAssemblyIdentityDemo.Shared.csproj" />
+    <ProjectReference Include="..\..\Shared\BlazorWebAssemblyIdentityDemo.Shared\BlazorWebAssemblyIdentityDemo.Shared.csproj" />
     <ProjectReference Include="..\BlazorWebAssemblyIdentityDemo.Model\BlazorWebAssemblyIdentityDemo.OAuth.Model.csproj" />
   </ItemGroup>
 

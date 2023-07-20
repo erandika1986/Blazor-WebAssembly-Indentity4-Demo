@@ -1,4 +1,5 @@
-﻿using BlazorWebAssemblyIdentityDemo.Shared.Enums;
+﻿
+using BlazorWebAssemblyIdentityDemo.Shared.Enums;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;

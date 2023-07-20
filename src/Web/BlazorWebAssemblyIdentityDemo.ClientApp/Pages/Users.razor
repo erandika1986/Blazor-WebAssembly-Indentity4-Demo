@@ -1,0 +1,32 @@
+﻿@page "/users"
+
+@using BlazorWebAssemblyIdentityDemo.ClientApp.Components
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Administrator")]
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md">
+            <TextSearchFilter OnSearchChanged="SearchChanged"/>
+        </div>
+        <div class="col-md">
+            <DropDown Items="MasterData.Roles" DefaultValue="-- All--" OnSelectedItemChanged="RoleChanged" />
+        </div>
+        <div class="col-md">
+            <DropDown Items="MasterData.Positions" DefaultValue="-- All--" OnSelectedItemChanged="PositionChanged" />
+        </div>
+        <div class="col-md">
+            <DropDown Items="MasterData.SortBy" DefaultValue="-- Sort By--" OnSelectedItemChanged="SortChanged" />
+        </div>
+        <div class="col-md">
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
