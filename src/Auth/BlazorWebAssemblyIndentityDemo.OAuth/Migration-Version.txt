@@ -6,3 +6,5 @@ PM> Add-Migration InitialPersistedGranMigration -c PersistedGrantDbContext -o Mi
 PM> Add-Migration InitialConfigurationMigration -c ConfigurationDbContext -o Migrations/IdentityServer/ConfigurationDb
 
 Update-Database -Project BlazorWebAssemblyIdentityDemo.OAuth.Data -StartUp BlazorWebAssemblyIdentityDemo.OAuth -Verbose -Context AuthIdentityContext
+
+dotnet watch run

@@ -120,7 +120,8 @@ namespace BlazorWebAssemblyIdentityDemo.ManageUserApi.Controllers
                     LastName = user.LastName,
                     Id = user.Id,
                     Position = EnumHelper.GetEnumDescription(user.Position),
-                    Roles = string.Join(",", user.UserRoles.Select(x => x.Role.Name).ToList())
+                    Roles = string.Join(",", user.UserRoles.Select(x => x.Role.Name).ToList()),
+                    ImageUrl = "https://icon-library.com/images/default-user-icon/default-user-icon-3.jpg"
                 });
             }
 

@@ -14,5 +14,6 @@ namespace BlazorWebAssemblyIdentityDemo.Shared.DTO.User
         public string Email { get; set; }
         public string Position { get; set; }
         public string Roles { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

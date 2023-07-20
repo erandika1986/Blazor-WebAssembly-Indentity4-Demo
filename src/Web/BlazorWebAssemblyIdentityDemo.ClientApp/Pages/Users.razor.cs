@@ -33,7 +33,11 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Pages
 
             MasterData = await UserStoreService.GetUserMasterAsync();
 
+            await GetUsers();
+
         }
+
+
 
         private async Task SearchChanged(string searchTerm)
         {

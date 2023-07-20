@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BlazorWebAssemblyIdentityDemo.Shared.DTO.Common;
 using BlazorWebAssemblyIdentityDemo.Product.Domain.Repositories.Commands;
+using BlazorWebAssemblyIdentityDemo.Shared.DTO.Common;
 
 namespace BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Commands.Product.DeleteProduct
 {
