@@ -17,6 +17,11 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Components
 
         public List<PagingLink> _links;
 
+        protected override void OnParametersSet()
+        {
+            CreatePaginationLinks();
+        }
+
         private void CreatePaginationLinks()
         {
             _links = new List<PagingLink>();

@@ -20,7 +20,7 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Components.Users
 
         private void RedirectToUpdate(string id)
         {
-            var url = Path.Combine("/updateUser/", id);
+            var url = Path.Combine("/editUser/", id);
             NavigationManager.NavigateTo(url);
         }
 

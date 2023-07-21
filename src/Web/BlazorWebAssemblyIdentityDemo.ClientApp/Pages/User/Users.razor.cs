@@ -5,7 +5,7 @@ using BlazorWebAssemblyIdentityDemo.ClientApp.Services;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 
-namespace BlazorWebAssemblyIdentityDemo.ClientApp.Pages
+namespace BlazorWebAssemblyIdentityDemo.ClientApp.Pages.User
 {
     public partial class Users : IDisposable
     {
@@ -37,7 +37,11 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Pages
 
         }
 
-
+        private async Task SelectedPage(int page)
+        {
+            _userParameters.CurrentPage = page;
+            await GetUsers();
+        }
 
         private async Task SearchChanged(string searchTerm)
         {
@@ -50,18 +54,21 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Pages
         private async Task RoleChanged(string roleId)
         {
             _userParameters.RoleId = roleId;
+            _userParameters.CurrentPage = 1;
             await GetUsers();
         }
 
         private async Task PositionChanged(string positionId)
         {
             _userParameters.PositionId = int.Parse(positionId);
+            _userParameters.CurrentPage = 1;
             await GetUsers();
         }
 
         private async Task SortChanged(string orderBy)
         {
             _userParameters.OrderBy = orderBy;
+            _userParameters.CurrentPage = 1;
             await GetUsers();
         }
 
@@ -77,7 +84,7 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Pages
         {
             var userResponse = await UserStoreService.GetUsers(_userParameters);
             UserList = userResponse.Items.ToList();
-
+            MetaData = userResponse.MetaData;
         }
 
         public void Dispose()

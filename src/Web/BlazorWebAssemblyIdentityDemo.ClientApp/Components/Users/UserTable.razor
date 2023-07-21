@@ -18,7 +18,7 @@
             {
                 <tr>
                     <td>
-                        <img src="@user.ImageUrl" alt="User image" style="width:100px;" />
+                        <img src="@user.ImageUrl" alt="User image" style="width:50px;height:50px" />
                     </td>
                     <td class="align-middle">
                         @user.FirstName
@@ -27,19 +27,19 @@
                         @user.LastName
                     </td>
                     <td class="align-middle">
-                        $@user.Email
+                        @user.Email
                     </td>
                     <td class="align-middle">
-                        $@user.Position
+                        @user.Position
                     </td>
                     <td class="align-middle">
-                        $@user.Roles
+                        @user.Roles
                     </td>
                     <td class="align-middle">
-                        <button type="button" class="btn btn-info" @onclick="() => RedirectToUpdate(user.Id)">Update</button>
+                        <RadzenButton Variant="Variant.Flat" Shade="Shade.Dark" Click=@(args => RedirectToUpdate(user.Id)) Text="Update" ButtonStyle="ButtonStyle.Primary" />
                     </td>
                     <td class="align-middle">
-                        <button type="button" class="btn btn-danger" @onclick="() => Delete(user.Id)">Delete</button>
+                        <RadzenButton Variant="Variant.Flat" Shade="Shade.Dark" Click=@(args => Delete(user.Id)) Text="Delete" ButtonStyle="ButtonStyle.Danger" />
                     </td>
                 </tr>
             }

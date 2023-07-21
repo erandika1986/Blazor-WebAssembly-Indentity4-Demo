@@ -7,5 +7,6 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Services
     {
         Task<UserMasterDto> GetUserMasterAsync();
         Task<PaginatedListDto<BasicUserDto>> GetUsers(UserFilterParams filterParams);
+        Task<UserDto> GetUserById(string id);
     }
 }

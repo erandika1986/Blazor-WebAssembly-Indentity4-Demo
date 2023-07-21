@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.InteropServices;
 using System.Security.Claims;
 
 namespace BlazorWebAssemblyIdentityDemo.ManageUserApi.Controllers
@@ -47,7 +48,7 @@ namespace BlazorWebAssemblyIdentityDemo.ManageUserApi.Controllers
                 LastName = userForRegistration.LastName,
                 UserName = userForRegistration.Email,
                 Email = userForRegistration.Email,
-                Position = userForRegistration.Position,
+                Position = Enum.Parse<Position>(userForRegistration.Position),
                 EmailConfirmed = true
             };
 
@@ -59,7 +60,7 @@ namespace BlazorWebAssemblyIdentityDemo.ManageUserApi.Controllers
                 new Claim(JwtClaimTypes.GivenName, userForRegistration.FirstName),
                 new Claim(JwtClaimTypes.FamilyName, userForRegistration.LastName),
                 new Claim(JwtClaimTypes.WebSite, "http://demo.com"),
-                new Claim("position", EnumHelper.GetEnumDescription(userForRegistration.Position)),
+                new Claim("position", EnumHelper.GetEnumDescription(Enum.Parse<Position>(userForRegistration.Position))),
                 new Claim("country", userForRegistration.Country),
                 new Claim("subject", user.Id)
             };
@@ -92,7 +93,7 @@ namespace BlazorWebAssemblyIdentityDemo.ManageUserApi.Controllers
         [HttpGet("getUsers")]
         public async Task<IActionResult> GetUsers([FromQuery] UserFilterParams userParams)
         {
-            var users =  _context.Users
+            var users = _context.Users
                 .AsQueryable()
                 .Search(userParams.SearchTerm)
                 .SearchByRoleId(userParams.RoleId)
@@ -112,7 +113,7 @@ namespace BlazorWebAssemblyIdentityDemo.ManageUserApi.Controllers
 
             foreach (var user in users)
             {
-              
+
                 basicUserDtos.Add(new BasicUserDto()
                 {
                     Email = user.Email,
@@ -131,6 +132,27 @@ namespace BlazorWebAssemblyIdentityDemo.ManageUserApi.Controllers
             return Ok(response);
         }
 
+        [HttpGet("getUserById")]
+        public async Task<IActionResult> GetUserById([FromQuery] string id)
+        {
+            var response = new UserForRegistrationDto();
+
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+      
+            response.FirstName = user.FirstName;
+            response.LastName = user.LastName;
+            response.Email = user.Email;
+            response.Position = ((int)user.Position.Value).ToString();
+            response.Country = "United State";
+            response.ImageUrl = "https://icon-library.com/images/default-user-icon/default-user-icon-3.jpg";
+
+            foreach (var role in user.UserRoles)
+            {
+                response.AssignedRoleIds.Add(role.RoleId);
+            }
+
+            return Ok(response);
+        }
 
         [HttpGet("getUserMasterData")]
         public async Task<IActionResult> GetUserMasterData()

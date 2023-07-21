@@ -17,6 +17,33 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Services
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
 
+        public async Task<UserDto> GetUserById(string id)
+        {
+            try
+            {
+                var queryStringParam = new Dictionary<string, string>
+                {
+                    ["id"] =id
+                };
+
+                var httpClient = _clientFactory.CreateClient("usersAPI");
+                var response = await httpClient.GetAsync(QueryHelpers.AddQueryString("Account/getUserById", queryStringParam));
+                var content = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new ApplicationException(content);
+                }
+
+                var responseDto = JsonSerializer.Deserialize<UserDto>(content, _options);
+
+                return responseDto;
+            }
+            catch (Exception ex)
+            {
+                return new UserDto();
+            }
+        }
+
         public async Task<UserMasterDto> GetUserMasterAsync()
         {
             try

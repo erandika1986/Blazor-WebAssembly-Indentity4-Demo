@@ -21,11 +21,23 @@
             <DropDown Items="MasterData.SortBy" DefaultValue="-- Sort By--" OnSelectedItemChanged="SortChanged" />
         </div>
         <div class="col-md">
-            <a href="/createProduct">Create Product</a>
+            <a href="/addUser">Create Product</a>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col">
+            <UserTable Users="UserList" OnDeleted="DeleteUser"></UserTable>
         </div>
     </div>
     <div class="row">
-        <UserTable Users="UserList" OnDeleted="DeleteUser"></UserTable>
+        <div class="col-md">
+            <div class="row">
+                <div class="col">
+                    <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -1,0 +1,46 @@
+﻿@page "/editUser/{id}"
+
+<h2>Add Edit Users</h2>
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="rz-p-0 rz-p-md-12">
+            <RadzenRow Gap="1rem">
+                <RadzenColumn Size="12" SizeSM="6">
+                    <RadzenStack>
+                        <RadzenFormField Text="FirstName" Variant="Variant.Outlined">
+                            <RadzenTextBox @bind-Value="@_user.FirstName" />
+                        </RadzenFormField>
+
+                        <RadzenFormField Text="LastName" Variant="Variant.Outlined">
+                            <RadzenTextBox @bind-Value="@_user.LastName" />
+                        </RadzenFormField>
+
+                        <RadzenFormField Text="Email" Variant="Variant.Outlined">
+                            <RadzenTextBox @bind-Value="@_user.Email" />
+                        </RadzenFormField>
+                    </RadzenStack>
+                </RadzenColumn>
+
+                <RadzenColumn Size="12" SizeSM="6">
+                    <RadzenStack>
+                        <RadzenFormField Text="Roles" Variant="Variant.Outlined">
+                            <RadzenDropDown @bind-Value=@_user.AssignedRoleIds Data=@MasterData.Roles TextProperty="Name" ValueProperty="Id"
+                                            Multiple=true AllowClear=true Placeholder="Select Roles" Style="width: 100%;" />
+                        </RadzenFormField>
+
+                        <RadzenFormField Text="Position" Variant="Variant.Outlined">
+                            <RadzenDropDown @bind-Value=@_user.Position Data=@MasterData.Positions TextProperty="Name" ValueProperty="Id"
+                                             Placeholder="Select Position" Style="width: 100%;" />
+                        </RadzenFormField>
+
+                        <RadzenFormField Text="Country" Variant="Variant.Outlined">
+                            <RadzenTextBox @bind-Value="@_user.Country" />
+                        </RadzenFormField>
+                    </RadzenStack>
+                </RadzenColumn>
+            </RadzenRow>
+        </div>
+
+    </div>
+</div>
