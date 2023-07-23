@@ -25,12 +25,12 @@
                 <RadzenColumn Size="12" SizeSM="6">
                     <RadzenStack>
                         <RadzenFormField Text="Roles" Variant="Variant.Outlined">
-                            <RadzenDropDown @bind-Value=@_user.AssignedRoleIds Data=@MasterData.Roles TextProperty="Name" ValueProperty="Id"
+                            <RadzenDropDown @bind-Value=@_user.AssignedRoleIds Data=@_masterData.Roles TextProperty="Name" ValueProperty="Id"
                                             Multiple=true AllowClear=true Placeholder="Select Roles" Style="width: 100%;" />
                         </RadzenFormField>
 
                         <RadzenFormField Text="Position" Variant="Variant.Outlined">
-                            <RadzenDropDown @bind-Value=@_user.Position Data=@MasterData.Positions TextProperty="Name" ValueProperty="Id"
+                            <RadzenDropDown @bind-Value=@_user.Position Data=@_masterData.Positions TextProperty="Name" ValueProperty="Id"
                                              Placeholder="Select Position" Style="width: 100%;" />
                         </RadzenFormField>
 
@@ -43,4 +43,12 @@
         </div>
 
     </div>
+
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <RadzenButton Variant="Variant.Flat" Shade="Shade.Dark" Click=@(args => Update()) Text="Update" ButtonStyle="ButtonStyle.Success" />
+        </div>
+    </div>
 </div>
+
+<SuccessNotification @ref="_notification" />

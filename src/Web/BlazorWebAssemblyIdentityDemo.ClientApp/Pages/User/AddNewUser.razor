@@ -1,6 +1,113 @@
 ﻿@page "/addUser"
+@using BlazorWebAssemblyIdentityDemo.Shared.DTO.User;
 
 <h2>Add New Users</h2>
-<div class="container">
+<div class="container-fluid">
+    <div class="row">
+
+        <RadzenTemplateForm TItem="UserForRegistrationDto" Data="_user" Submit=@AddUser InvalidSubmit=@OnInvalidSubmit>
+
+            <RadzenRow Gap="1rem">
+                <RadzenColumn Size="12" SizeSM="6">
+                    <RadzenStack>
+                        <RadzenFormField Text="First Name" Variant="Variant.Outlined">
+                            <ChildContent>
+                                <RadzenTextBox Name="FirstName" @bind-Value="@_user.FirstName" />
+                            </ChildContent>
+                            <Helper>
+                                <RadzenRequiredValidator Component="FirstName" Text="First name is required." Popup="false" />
+                            </Helper>
+                        </RadzenFormField>
+
+                        <RadzenFormField Text="Last Name" Variant="Variant.Outlined">
+                            <ChildContent>
+                                <RadzenTextBox Name="LastName" @bind-Value="@_user.LastName" />
+                            </ChildContent>
+                            <Helper>
+                                <RadzenRequiredValidator Component="LastName" Text="Last name is required." Popup="false" />
+                            </Helper>
+                        </RadzenFormField>
+
+                        <RadzenFormField Text="Email" Variant="Variant.Outlined">
+                            <ChildContent>
+                                <RadzenTextBox Name="Email" @bind-Value="@_user.Email" />
+                            </ChildContent>
+                            <Helper>
+                                <RadzenRequiredValidator Component="Email" Text="Email is required." Popup="false" />
+                                <RadzenEmailValidator Component="Email" Visible=@(!string.IsNullOrEmpty(_user.Email)) Text="Invalid email format." Popup="false" />
+                            </Helper>
+   @*                         <ValidationMessage For="@(() => _user.Email)" />*@
+                        </RadzenFormField>
+
+                        <RadzenFormField Text="Password" Variant="Variant.Outlined">
+                            <ChildContent>
+                                <RadzenPassword Name="Password" @bind-Value="@_user.Password" />
+                            </ChildContent>
+                            <Helper>
+                                <RadzenRequiredValidator Component="Password" Text="Please enter a password!" Popup="false"></RadzenRequiredValidator>
+                                <RadzenLengthValidator Visible=@(!string.IsNullOrEmpty(_user.Password)) Component="Password" Min="6" Text="You are required to enter 6 or more characters!" Popup="false"></RadzenLengthValidator>
+                            </Helper>
+           
+@*                            <ValidationMessage For="@(() => _user.Password)" />*@
+                        </RadzenFormField>
+                    </RadzenStack>
+                </RadzenColumn>
+
+                <RadzenColumn Size="12" SizeSM="6">
+                    <RadzenStack>
+                        <RadzenFormField Text="Roles" Variant="Variant.Outlined">
+                            <ChildContent>
+                                <RadzenDropDown Name="Role" @bind-Value=@_user.AssignedRoleIds Data=@_masterData.Roles TextProperty="Name" ValueProperty="Id"
+                                                Multiple=true AllowClear=true Style="width: 100%;" />
+                            </ChildContent>
+                            <Helper>
+                                <RadzenRequiredValidator Component="Role" Text="Please select role" Popup="false"></RadzenRequiredValidator>
+                            </Helper>
+                        </RadzenFormField>
+
+                        <RadzenFormField Text="Position" Variant="Variant.Outlined">
+                            <ChildContent>
+                                <RadzenDropDown Name="Position" @bind-Value=@_user.Position Data=@_masterData.Positions TextProperty="Name" ValueProperty="Id"
+                                                Style="width: 100%;" />
+                            </ChildContent>
+                            <Helper>
+                                <RadzenRequiredValidator Component="Position" Text="Please select Position" Popup="false"></RadzenRequiredValidator>
+                            </Helper>
+                        </RadzenFormField>
+
+                        <RadzenFormField Text="Country" Variant="Variant.Outlined">
+                            <ChildContent>
+                                <RadzenTextBox Name="Country" @bind-Value="@_user.Country" />
+                            </ChildContent>
+                            <Helper>
+                                <RadzenRequiredValidator Component="Country" Text="Country is required" Popup="false" />
+                            </Helper>
+                        </RadzenFormField>
+
+                        <RadzenFormField Text="Confirm Password" Variant="Variant.Outlined">
+                            <ChildContent>
+                                <RadzenPassword Name="ConfirmPassword" @bind-Value="@_user.ConfirmPassword" />
+                            </ChildContent>
+                            <Helper>
+                                <RadzenRequiredValidator Component="ConfirmPassword" Text="Repeat your password" Popup="false" />
+                                <RadzenCompareValidator Component="ConfirmPassword" Visible=@(!string.IsNullOrEmpty(_user.ConfirmPassword)) Value=@_user.Password ControlToCompare="Password" ErrorMessage="Passwords do not match." Popup="false"></RadzenCompareValidator>
+                            </Helper>
+
+                        </RadzenFormField>
+                    </RadzenStack>
+                </RadzenColumn>
+            </RadzenRow>
+
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <RadzenButton Variant="Variant.Flat" ButtonType="ButtonType.Submit" Shade="Shade.Dark" Text="Add" ButtonStyle="ButtonStyle.Success" />
+                </div>
+            </div>
+        </RadzenTemplateForm>
+
+    </div>
+
 
 </div>
+
+<SuccessNotification @ref="_notification" />

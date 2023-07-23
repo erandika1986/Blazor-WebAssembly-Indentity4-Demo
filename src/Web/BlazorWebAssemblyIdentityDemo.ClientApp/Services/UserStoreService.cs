@@ -17,6 +17,24 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Services
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
 
+        public async Task DeleteUser(string id)
+        {
+            try
+            {
+                var httpClient = _clientFactory.CreateClient("usersAPI");
+                var response = await httpClient.DeleteAsync("Account/DeleteUser/"+ id);
+                var content = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new ApplicationException(content);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Unknown error occurred.");
+            }
+        }
+
         public async Task<UserDto> GetUserById(string id)
         {
             try
@@ -96,6 +114,43 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Services
             catch (Exception ex)
             {
                 return new PaginatedListDto<BasicUserDto>();
+            }
+        }
+
+        public async Task RegisterUser(UserForRegistrationDto userForRegistrationDto)
+        {
+            
+            var content = JsonSerializer.Serialize(userForRegistrationDto);
+
+            var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+
+            var httpClient = _clientFactory.CreateClient("usersAPI");
+
+            var putResult = await httpClient.PostAsync("Account/RegisterUser", bodyContent);
+
+            var putContent = await putResult.Content.ReadAsStringAsync();
+
+            if (!putResult.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(putContent);
+            }
+        }
+
+        public async Task UpdateUser(UserDto user)
+        {
+            var content = JsonSerializer.Serialize(user);
+
+            var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+
+            var httpClient = _clientFactory.CreateClient("usersAPI");
+
+            var putResult = await httpClient.PutAsync("Account/UpdateUser", bodyContent);
+
+            var putContent = await putResult.Content.ReadAsStringAsync();
+
+            if (!putResult.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(putContent);
             }
         }
     }

@@ -10,7 +10,7 @@ namespace BlazorWebAssemblyIdentityDemo.Shared.DTO.User
 {
     public class UserForRegistrationDto : UserDto
     {
-        public UserForRegistrationDto()
+        public UserForRegistrationDto():base()
         {
    
         }

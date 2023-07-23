@@ -1,26 +1,42 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using BlazorWebAssemblyIdentityDemo.ClientApp.Services;
+using BlazorWebAssemblyIdentityDemo.ClientApp.Shared;
+using BlazorWebAssemblyIdentityDemo.Shared.DTO.User;
+using Microsoft.AspNetCore.Components;
+using Radzen;
+using System.Text.Json;
+using System;
 
 namespace BlazorWebAssemblyIdentityDemo.ClientApp.Pages.User
 {
     public partial class AddNewUser
     {
+        private UserForRegistrationDto _user = new UserForRegistrationDto() { Id = string.Empty };
+
+        private UserMasterDto _masterData = new UserMasterDto();
+
+        private SuccessNotification _notification;
+        public string DefaultValue = "1";
+
         [Inject]
-        public NavigationManager NavigationManager { get; set; }
+        public IUserStoreService UserStoreService { get; set; }
 
-        protected override void OnInitialized()
+        [Parameter]
+        public string Id { get; set; }
+
+        protected override async Task OnInitializedAsync()
         {
-            NavigationManager.LocationChanged += NavigationManager_LocationChanged;
+            _masterData = await UserStoreService.GetUserMasterAsync();
         }
 
-        private void NavigationManager_LocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+        private async Task AddUser()
         {
-            //Message = $"Location Changed at {DateTime.Now.ToLongTimeString()}";
-            InvokeAsync(StateHasChanged);
+            await UserStoreService.RegisterUser(_user);
+            _notification.Show();
         }
 
-        protected override void OnParametersSet()
+        void OnInvalidSubmit(FormInvalidSubmitEventArgs args)
         {
-            base.OnParametersSet();
+            //console.Log($"InvalidSubmit: {JsonSerializer.Serialize(args, new JsonSerializerOptions() { WriteIndented = true })}");
         }
     }
 }

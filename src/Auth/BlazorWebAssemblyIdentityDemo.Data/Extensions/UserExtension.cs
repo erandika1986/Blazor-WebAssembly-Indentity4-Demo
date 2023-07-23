@@ -14,7 +14,7 @@ namespace BlazorWebAssemblyIdentityDemo.OAuth.Data.Extensions
     {
         public static IQueryable<User> SearchByRoleId(this IQueryable<User> query, string? roleId)
         {
-            if(string.IsNullOrEmpty(roleId))
+            if(string.IsNullOrEmpty(roleId) || roleId == "0")
             {
                 return query;
             }
@@ -22,13 +22,14 @@ namespace BlazorWebAssemblyIdentityDemo.OAuth.Data.Extensions
             return query.Where(x => x.UserRoles.Any(x => x.RoleId == roleId));
         }
 
-        public static IQueryable<User> SearchByPositionId(this IQueryable<User> query, int? positionId)
+        public static IQueryable<User> SearchByPositionId(this IQueryable<User> query, string? positionId)
         {
-            if (!positionId.HasValue)
+            if (string.IsNullOrEmpty(positionId) || positionId == "0")
             {
                 return query;
             }
-            var position = (Position)positionId.Value;
+
+            var position = (Position)(int.Parse(positionId));
 
             return query.Where(x => x.Position == position);
         }

@@ -16,11 +16,11 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Pages.User
 
         private UserFilterParams _userParameters = new UserFilterParams()
         {
-            RoleId = string.Empty,
+            RoleId = "0",
             CurrentPage = 1,
             OrderBy = string.Empty,
             PageSize = 25,
-            PositionId = (int)Position.CEO,
+            PositionId = "0",
             SearchTerm = string.Empty,
         };
 
@@ -60,7 +60,7 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Pages.User
 
         private async Task PositionChanged(string positionId)
         {
-            _userParameters.PositionId = int.Parse(positionId);
+            _userParameters.PositionId = positionId;
             _userParameters.CurrentPage = 1;
             await GetUsers();
         }
@@ -75,7 +75,7 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Pages.User
 
         private async Task DeleteUser(string id)
         {
-            //await UserStoreService.DeleteUser(id);
+            await UserStoreService.DeleteUser(id);
             _userParameters.CurrentPage = 1;
             await GetUsers();
         }

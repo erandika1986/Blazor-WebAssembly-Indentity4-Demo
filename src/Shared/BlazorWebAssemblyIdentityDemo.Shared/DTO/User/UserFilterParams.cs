@@ -10,6 +10,6 @@ namespace BlazorWebAssemblyIdentityDemo.Shared.DTO.User
     public class UserFilterParams : BaseFilterParams
     {
         public string? RoleId { get; set; }
-        public int? PositionId { get; set; }
+        public string? PositionId { get; set; }
     }
 }

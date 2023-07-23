@@ -1,6 +1,7 @@
 ﻿using BlazorWebAssemblyIdentityDemo.Shared.DTO.User;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using Radzen;
 
 namespace BlazorWebAssemblyIdentityDemo.ClientApp.Components.Users
 {
@@ -16,6 +17,9 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Components.Users
         public NavigationManager NavigationManager { get; set; }
 
         [Inject]
+        public DialogService DialogService { get; set; }
+
+        [Inject]
         public IJSRuntime Js { get; set; }
 
         private void RedirectToUpdate(string id)
@@ -26,13 +30,20 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Components.Users
 
         private async Task Delete(string id)
         {
-            var user =Users.FirstOrDefault(p => p.Id.Equals(id));
+            var user = Users.FirstOrDefault(p => p.Id.Equals(id));
 
-            var confirmed = await Js.InvokeAsync<bool>("confirm", $"Are you sure you want to delete {user.FirstName} user?");
-            if (confirmed)
+            var response = await DialogService.Confirm($"Are you sure you want to delete {user.FirstName} user?", "Confirm", 
+                new ConfirmOptions() 
+                { 
+                    OkButtonText = "Yes", 
+                    CancelButtonText = "No" 
+                });
+
+            if(response.HasValue && response.Value)
             {
                 await OnDeleted.InvokeAsync(id);
             }
+
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿<section>
     <select class="form-select" @onchange="SelectedItemChanged">
-        <option value="-1">@DefaultValue</option>
+        <option value="0">@DefaultValue</option>
         @foreach (var item in Items)
         {
             <option value="@item.Id">@item.Name</option>

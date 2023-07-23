@@ -15,6 +15,8 @@ namespace BlazorWebAssemblyIdentityDemo.Shared.DTO.User
             AssignedRoleIds = new List<string>();    
         }
 
+        public string Id { get; set; }
+
         [Required(ErrorMessage = "First Name is required.")]
         public string FirstName { get; set; }
 
@@ -35,6 +37,6 @@ namespace BlazorWebAssemblyIdentityDemo.Shared.DTO.User
         [Required(ErrorMessage = "Country is required")]
         public string Country { get; set; }
 
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

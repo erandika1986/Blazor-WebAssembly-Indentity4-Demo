@@ -7,9 +7,9 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Pages.User
 {
     public partial class EditUser
     {
-        private UserDto _user;
+        private UserDto _user = new UserDto();
 
-        private UserMasterDto MasterData { get; set; }
+        private UserMasterDto _masterData = new UserMasterDto();
 
         private SuccessNotification _notification;
         public string DefaultValue  = "1";
@@ -22,12 +22,13 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Pages.User
 
         protected override async Task OnInitializedAsync()
         {
-            MasterData = await UserStoreService.GetUserMasterAsync();
+            _masterData = await UserStoreService.GetUserMasterAsync();
             _user = await UserStoreService.GetUserById(Id);
         }
 
         private async Task Update()
         {
+            await UserStoreService.UpdateUser(_user);
             _notification.Show();
         }
     }

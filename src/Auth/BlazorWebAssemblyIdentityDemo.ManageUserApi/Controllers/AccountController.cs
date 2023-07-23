@@ -1,4 +1,5 @@
-﻿using BlazorWebAssemblyIdentityDemo.OAuth.Data;
+﻿using BlazorWebAssemblyIdentityDemo.ManageUserApi.Extensions;
+using BlazorWebAssemblyIdentityDemo.OAuth.Data;
 using BlazorWebAssemblyIdentityDemo.OAuth.Data.Extensions;
 using BlazorWebAssemblyIdentityDemo.OAuth.Model;
 using BlazorWebAssemblyIdentityDemo.Shared.DTO;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Claims;
 
@@ -35,7 +37,7 @@ namespace BlazorWebAssemblyIdentityDemo.ManageUserApi.Controllers
             this._context = context;
         }
 
-        [HttpPost("Registration")]
+        [HttpPost("RegisterUser")]
         [Authorize]
         public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
         {
@@ -90,6 +92,92 @@ namespace BlazorWebAssemblyIdentityDemo.ManageUserApi.Controllers
             return StatusCode(201);
         }
 
+        [HttpPut("UpdateUser")]
+        [Authorize]
+        public async Task<IActionResult> UpdateUser([FromBody] UserDto userDto)
+        {
+            if (userDto == null || !ModelState.IsValid)
+                return BadRequest();
+
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userDto.Id);
+
+
+                user.FirstName = userDto.FirstName;
+                user.LastName = userDto.LastName;
+                user.UserName = userDto.Email;
+                user.Email = userDto.Email;
+                user.Position = Enum.Parse<Position>(userDto.Position);
+                user.EmailConfirmed = true;
+            
+
+                var result = await _userManager.UpdateAsync(user);
+
+                var claims = new List<Claim>()
+            {
+                new Claim(JwtClaimTypes.Name, $"{userDto.FirstName} {userDto.LastName}"),
+                new Claim(JwtClaimTypes.GivenName, userDto.FirstName),
+                new Claim(JwtClaimTypes.FamilyName, userDto.LastName),
+                new Claim(JwtClaimTypes.WebSite, "http://demo.com"),
+                new Claim("position", EnumHelper.GetEnumDescription(Enum.Parse<Position>(userDto.Position))),
+                new Claim("country", userDto.Country),
+                new Claim("subject", user.Id)
+            };
+
+                if (!result.Succeeded)
+                {
+                    var errors = result.Errors.Select(e => e.Description).ToList();
+                    return BadRequest(ResponseDto.Failure(errors));
+                }
+
+                var savedRoles = await _userManager.GetRolesAsync(user);
+
+                foreach (var roleId in userDto.AssignedRoleIds)
+                {
+                    var role = await _roleManager.FindByIdAsync(roleId);
+
+                    savedRoles.Remove(role.Name);
+
+                    var isRoleExists = await _userManager.IsInRoleAsync(user, role.Name);
+
+                    if (!isRoleExists)
+                    {
+                        claims.Add(new Claim(JwtClaimTypes.Role, role.Name));
+                        await _userManager.AddToRoleAsync(user, role.Name);
+                    }
+                }
+
+                //delete removed roles
+                foreach (var role in savedRoles)
+                {
+                    await _userManager.RemoveFromRoleAsync(user, role);
+
+                    //remove Claims
+                    await _userManager.RemoveClaimAsync(user, new Claim(JwtClaimTypes.Role, role));
+                }
+
+                var allAssignedClaims = await _userManager.GetClaimsAsync(user);
+
+                foreach (var claim in claims)
+                {
+                    if (!allAssignedClaims.HasClaim(claim))
+                    {
+                        await _userManager.AddClaimAsync(user, claim);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+
+            return StatusCode(201);
+        }
+
         [HttpGet("getUsers")]
         public async Task<IActionResult> GetUsers([FromQuery] UserFilterParams userParams)
         {
@@ -139,6 +227,7 @@ namespace BlazorWebAssemblyIdentityDemo.ManageUserApi.Controllers
 
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
       
+            response.Id = user.Id;
             response.FirstName = user.FirstName;
             response.LastName = user.LastName;
             response.Email = user.Email;
@@ -152,6 +241,18 @@ namespace BlazorWebAssemblyIdentityDemo.ManageUserApi.Controllers
             }
 
             return Ok(response);
+        }
+
+        [HttpDelete("DeleteUser/{id}")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var user =await _context.Users.FirstOrDefaultAsync (x => x.Id == id);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(201);
         }
 
         [HttpGet("getUserMasterData")]
@@ -201,6 +302,11 @@ namespace BlazorWebAssemblyIdentityDemo.ManageUserApi.Controllers
         {
             var claims = User.Claims.Select(c => $"{c.Type}: {c.Value}").ToList();
             return claims;
+        }
+
+        private void AddUpdateClaim(User user, string key, string value)
+        {
+
         }
     }
 }
