@@ -5,8 +5,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddApplicationServices();
-builder.Services.AddWebAPIServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
+
+builder.Services.ConfigureCors();
+builder.Services.ConfigureIISIntegration();
+builder.Services.ConfigureSwagger();
+builder.Services.ConfigureAuthentication();
+builder.Services.ConfigureAllowLargeFileUpload();
+builder.Services.AddWebAPIServices();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -18,8 +18,6 @@ namespace BlazorWebAssemblyIdentityDemo.Product.Infrastructure.Data.Configuratio
             builder.HasKey(x => x.Id);
 
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
-
-            builder.Property(p => p.IsActive).HasDefaultValue(true);
         }
     }
 }

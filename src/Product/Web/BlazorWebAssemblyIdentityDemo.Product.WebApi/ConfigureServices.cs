@@ -9,43 +9,34 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ConfigureServices
     {
-        public static IServiceCollection AddWebAPIServices(this IServiceCollection services, IConfiguration configuration)
+        public static void ConfigureCors(this IServiceCollection services)
         {
-            services.AddHttpContextAccessor();
-
-            services.AddSingleton<ICurrentUserService, CurrentUserService>();
-
-            services.AddHealthChecks()
-               .AddDbContextCheck<DemoContext>();
-
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy", 
+                options.AddPolicy("CorsPolicy",
                     builder =>
                         builder.AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader());
             });
+        }
 
+        public static void ConfigureIISIntegration(this IServiceCollection services)
+        {
             services.Configure<IISOptions>(options =>
             {
 
             });
+        }
 
-            services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", opt =>
-                {
-                    opt.RequireHttpsMetadata = false;
-                    opt.Authority = "https://localhost:5005";
-                    opt.Audience = "productApi";
-                });
-
+        public static void ConfigureSwagger(this IServiceCollection services)
+        {
             services.AddSwaggerGen(options =>
             {
 
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "Blazor Demo. - Web API",
+                    Title = "Blazor Demo. - Product Web API",
                     Version = "v1",
                     Description = "",
                     TermsOfService = new Uri("https://example.com/terms")
@@ -73,7 +64,21 @@ namespace Microsoft.Extensions.DependencyInjection
                     }
                 });
             });
+        }
 
+        public static void ConfigureAuthentication(this IServiceCollection services)
+        {
+              services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", opt =>
+                {
+                    opt.RequireHttpsMetadata = false;
+                    opt.Authority = "https://localhost:5005";
+                    opt.Audience = "productApi";
+                });
+        }
+
+        public static void ConfigureAllowLargeFileUpload(this IServiceCollection services)
+        {
             services.Configure<FormOptions>(o =>
             {
                 o.ValueLengthLimit = int.MaxValue;
@@ -87,8 +92,16 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 options.MaxModelBindingCollectionSize = int.MaxValue;
             });
+        }
 
-            return services;
+        public static void AddWebAPIServices(this IServiceCollection services)
+        {
+            services.AddHttpContextAccessor();
+
+            services.AddSingleton<ICurrentUserService, CurrentUserService>();
+
+            services.AddHealthChecks()
+               .AddDbContextCheck<DemoContext>();
         }
     }
 }

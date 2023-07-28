@@ -22,7 +22,7 @@ namespace BlazorWebAssemblyIdentityDemo.Product.Infrastructure.Migrations
                     CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,7 +43,7 @@ namespace BlazorWebAssemblyIdentityDemo.Product.Infrastructure.Migrations
                     CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

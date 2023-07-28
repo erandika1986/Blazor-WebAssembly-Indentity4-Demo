@@ -19,8 +19,6 @@ namespace BlazorWebAssemblyIdentityDemo.Product.Infrastructure.Data.Configuratio
 
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
-            builder.Property(p => p.IsActive).HasDefaultValue(true);
-
             builder.HasOne<ProductCategory>(a => a.ProductCategory)
                 .WithMany(at => at.Products)
                 .HasForeignKey(a => a.ProductCategoryId)

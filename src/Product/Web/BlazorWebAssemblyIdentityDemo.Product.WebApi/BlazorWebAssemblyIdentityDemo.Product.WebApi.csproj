@@ -28,4 +28,8 @@
     <ProjectReference Include="..\..\Infrastructure\BlazorWebAssemblyIdentityDemo.Product.Infrastructure\BlazorWebAssemblyIdentityDemo.Product.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 </Project>

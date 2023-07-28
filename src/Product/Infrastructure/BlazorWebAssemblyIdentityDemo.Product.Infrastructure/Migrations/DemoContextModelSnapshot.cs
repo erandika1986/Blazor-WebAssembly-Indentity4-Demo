@@ -25,7 +25,7 @@ namespace BlazorWebAssemblyIdentityDemo.Product.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BlazorWebAssemblyIdentityDemo.Domain.Entities.Product", b =>
+            modelBuilder.Entity("BlazorWebAssemblyIdentityDemo.Product.Domain.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,9 +48,7 @@ namespace BlazorWebAssemblyIdentityDemo.Product.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -72,7 +70,7 @@ namespace BlazorWebAssemblyIdentityDemo.Product.Infrastructure.Migrations
                     b.ToTable("Product", (string)null);
                 });
 
-            modelBuilder.Entity("BlazorWebAssemblyIdentityDemo.Domain.Entities.ProductCategory", b =>
+            modelBuilder.Entity("BlazorWebAssemblyIdentityDemo.Product.Domain.Entities.ProductCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -87,9 +85,7 @@ namespace BlazorWebAssemblyIdentityDemo.Product.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -106,9 +102,9 @@ namespace BlazorWebAssemblyIdentityDemo.Product.Infrastructure.Migrations
                     b.ToTable("ProductCategory", (string)null);
                 });
 
-            modelBuilder.Entity("BlazorWebAssemblyIdentityDemo.Domain.Entities.Product", b =>
+            modelBuilder.Entity("BlazorWebAssemblyIdentityDemo.Product.Domain.Entities.Product", b =>
                 {
-                    b.HasOne("BlazorWebAssemblyIdentityDemo.Domain.Entities.ProductCategory", "ProductCategory")
+                    b.HasOne("BlazorWebAssemblyIdentityDemo.Product.Domain.Entities.ProductCategory", "ProductCategory")
                         .WithMany("Products")
                         .HasForeignKey("ProductCategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -117,7 +113,7 @@ namespace BlazorWebAssemblyIdentityDemo.Product.Infrastructure.Migrations
                     b.Navigation("ProductCategory");
                 });
 
-            modelBuilder.Entity("BlazorWebAssemblyIdentityDemo.Domain.Entities.ProductCategory", b =>
+            modelBuilder.Entity("BlazorWebAssemblyIdentityDemo.Product.Domain.Entities.ProductCategory", b =>
                 {
                     b.Navigation("Products");
                 });

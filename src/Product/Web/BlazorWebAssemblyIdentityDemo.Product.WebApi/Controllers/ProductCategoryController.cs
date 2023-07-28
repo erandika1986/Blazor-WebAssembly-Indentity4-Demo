@@ -1,5 +1,9 @@
 ﻿using BlazorWebAssemblyIdentityDemo.Product.Application.Contracts;
+using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Commands.ProductCategory.DeleteProductCategory;
+using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Commands.ProductCategory.SaveProductCategory;
 using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.ProductCategory.GetAllProductCategories;
+using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.ProductCategory.GetProductCategoryById;
+using BlazorWebAssemblyIdentityDemo.Shared.DTO.ProductCategory;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +14,7 @@ namespace BlazorWebAssemblyIdentityDemo.Product.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductCategoryController : ControllerBase
     {
         private IMediator _mediator;
@@ -21,6 +26,33 @@ namespace BlazorWebAssemblyIdentityDemo.Product.WebApi.Controllers
             this._currentUserService = currentUserService;
         }
 
+        [HttpPost("saveProductCategory")]
+        public async Task<IActionResult> SaveProductCategory([FromBody] SaveProductCategoryCommand saveCommand)
+        {
+            var response = await _mediator.Send(saveCommand);
+
+            return Ok(response);
+        }
+
+
+        [HttpDelete("deleteProductCategory/{id:number}")]
+        public async Task<IActionResult> DeleteProductCategory(int id)
+        {
+            var response = await _mediator.Send(new DeleteProductCategoryCommand() { Id = id });
+
+            return Ok(response);
+        }
+
+
+        [HttpGet("getProductCategoryById/{id:int}")]
+        public async Task<IActionResult> GetProductCategoryById(int id)
+        {
+            var response = await _mediator.Send(new GetProductCategoryByIdQuery(id));
+
+            return Ok(response);
+        }
+
+
         [HttpGet("getAllProductCategories")]
         public async Task<IActionResult> GetAllProductCategories()
         {
@@ -28,6 +60,7 @@ namespace BlazorWebAssemblyIdentityDemo.Product.WebApi.Controllers
 
             return Ok(response);
         }
+
 
         [HttpGet("Privacy")]
         [Authorize(Roles = "Administrator")]
