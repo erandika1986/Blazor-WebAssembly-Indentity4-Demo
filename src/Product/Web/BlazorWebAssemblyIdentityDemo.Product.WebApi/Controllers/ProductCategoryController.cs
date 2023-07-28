@@ -4,6 +4,7 @@ using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Commands.Produ
 using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.ProductCategory.GetAllProductCategories;
 using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.ProductCategory.GetProductCategoryById;
 using BlazorWebAssemblyIdentityDemo.Shared.DTO.ProductCategory;
+using BlazorWebAssemblyIdentityDemo.Shared.DTO.User;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -54,9 +55,9 @@ namespace BlazorWebAssemblyIdentityDemo.Product.WebApi.Controllers
 
 
         [HttpGet("getAllProductCategories")]
-        public async Task<IActionResult> GetAllProductCategories()
+        public async Task<IActionResult> GetAllProductCategories([FromQuery] ProductCategoryFilterParam filterParams)
         {
-            var response = await _mediator.Send(new GetAllProductCategoriesQuery());
+            var response = await _mediator.Send(new GetAllProductCategoriesQuery(filterParams));
 
             return Ok(response);
         }

@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using BlazorWebAssemblyIdentityDemo.Product.Application.Extensions;
 using BlazorWebAssemblyIdentityDemo.Product.Domain.Repositories.Queries;
+using BlazorWebAssemblyIdentityDemo.Shared.DTO.Common;
 using BlazorWebAssemblyIdentityDemo.Shared.DTO.ProductCategory;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +13,12 @@ using System.Threading.Tasks;
 
 namespace BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.ProductCategory.GetAllProductCategories
 {
-    public class GetAllProductCategoriesQuery : IRequest<List<ProductCategoryDto>>
+    public record GetAllProductCategoriesQuery(ProductCategoryFilterParam FilterParam) : IRequest<PaginatedListDto<ProductCategoryDto>>
     {
+
     }
 
-    public class GetAllProductCategoriesQueryHandler : IRequestHandler<GetAllProductCategoriesQuery, List<ProductCategoryDto>>
+    public class GetAllProductCategoriesQueryHandler : IRequestHandler<GetAllProductCategoriesQuery, PaginatedListDto<ProductCategoryDto>>
     {
         private readonly IProductCategoryQueryRepository _productCategoryQueryRepository;
         private readonly IMapper _mapper;
@@ -25,11 +29,27 @@ namespace BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.Pr
             this._mapper = mapper;
         }
 
-        public async Task<List<ProductCategoryDto>> Handle(GetAllProductCategoriesQuery request, CancellationToken cancellationToken)
+        public async Task<PaginatedListDto<ProductCategoryDto>> Handle(GetAllProductCategoriesQuery request, CancellationToken cancellationToken)
         {
-            var productCategories = await _productCategoryQueryRepository.GetAll(cancellationToken);
+            var productCategories = _productCategoryQueryRepository.GetAllQueryableAsync()
+                .Search(request.FilterParam.SearchTerm)
+                .Sort(request.FilterParam.OrderBy);
 
-            return _mapper.Map<List<ProductCategoryDto>>(productCategories);
+            var recordCount = await productCategories.CountAsync();
+
+            var paginatedPageCategory = await productCategories
+                .Skip(request.FilterParam.CurrentPage - 1)
+                .Take(request.FilterParam.PageSize)
+                .ToListAsync();
+
+          var response = new PaginatedListDto<ProductCategoryDto>
+                (
+                _mapper.Map<List<ProductCategoryDto>>(productCategories),
+                recordCount, 
+                request.FilterParam.CurrentPage, 
+                request.FilterParam.PageSize);
+
+            return response;
         }
     }
 }

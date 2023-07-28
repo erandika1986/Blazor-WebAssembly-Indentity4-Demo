@@ -1,0 +1,34 @@
+﻿@page "/productCategories"
+@using BlazorWebAssemblyIdentityDemo.ClientApp.Components
+
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Administrator")]
+
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <TextSearchFilter OnSearchChanged="SearchChanged"/>
+        </div>
+        <div class="col">
+
+        </div>
+        <div class="col-2">
+            <RadzenButton Variant="Variant.Flat" Shade="Shade.Dark" Click=@(args => RedirectToUpdate()) Text="Create New" ButtonStyle="ButtonStyle.Primary" />
+   
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md">
+            <div class="row">
+                <div class="col">
+                    <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -13,7 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ContextMenuService>();
             services.AddScoped<TooltipService>();
             services.AddScoped<IUserStoreService, UserStoreService>();
-
+            services.AddScoped<IProductCategoryService, ProductCategoryService>();
             return services;
         }
     }

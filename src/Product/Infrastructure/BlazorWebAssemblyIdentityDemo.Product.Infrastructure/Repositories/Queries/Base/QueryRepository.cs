@@ -20,6 +20,11 @@ namespace BlazorWebAssemblyIdentityDemo.Product.Infrastructure.Repositories.Quer
             return await _entities.ToListAsync(cancellationToken: cancellationToken);
         }
 
+        public IQueryable<T> GetAllQueryableAsync()
+        {
+           return this._entities.AsQueryable();
+        }
+
         public async Task<T> GetById(int id, CancellationToken cancellationToken)
         {
             var result = await _entities.FirstOrDefaultAsync(x => EF.Property<int>(x, "Id") == id, cancellationToken: cancellationToken);

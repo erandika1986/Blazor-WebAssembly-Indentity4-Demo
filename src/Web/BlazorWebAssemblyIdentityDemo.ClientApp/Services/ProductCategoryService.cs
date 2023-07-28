@@ -36,25 +36,33 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Services
             }
         }
 
-        public async Task<List<ProductCategoryDto>> GetAllProductCategories()
+        public async Task<PaginatedListDto<ProductCategoryDto>> GetAllProductCategories(ProductCategoryFilterParam filterParams)
         {
             try
             {
+                var queryStringParam = new Dictionary<string, string>
+                {
+                    ["currentPage"] = filterParams.CurrentPage.ToString(),
+                    ["pageSize"] = "10",
+                    ["searchTerm"] = filterParams.SearchTerm == null ? "" : filterParams.SearchTerm,
+                    ["orderBy"] = filterParams.OrderBy
+                };
+
                 var httpClient = _clientFactory.CreateClient("productApi");
-                var response = await httpClient.GetAsync("ProductCategory/getAllProductCategories");
+                var response = await httpClient.GetAsync(QueryHelpers.AddQueryString("ProductCategory/getAllProductCategories", queryStringParam));
                 var content = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
                     throw new ApplicationException(content);
                 }
 
-                var pagingResponse = JsonSerializer.Deserialize<List<ProductCategoryDto>>(content, _options);
+                var pagingResponse = JsonSerializer.Deserialize<PaginatedListDto<ProductCategoryDto>>(content, _options);
 
                 return pagingResponse;
             }
             catch (Exception ex)
             {
-                return new List<ProductCategoryDto> ();
+                return new PaginatedListDto<ProductCategoryDto> ();
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using BlazorWebAssemblyIdentityDemo.Shared.DTO.ProductCategory;
+﻿using BlazorWebAssemblyIdentityDemo.Shared.DTO.Common;
+using BlazorWebAssemblyIdentityDemo.Shared.DTO.ProductCategory;
 using BlazorWebAssemblyIdentityDemo.Shared.DTO.User;
 
 namespace BlazorWebAssemblyIdentityDemo.ClientApp.Services
@@ -11,6 +12,6 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Services
 
         Task<ProductCategoryDto> GetProductCategoryById(int id);
 
-        Task<List<ProductCategoryDto>> GetAllProductCategories();
+        Task<PaginatedListDto<ProductCategoryDto>> GetAllProductCategories(ProductCategoryFilterParam filterParams);
     }
 }

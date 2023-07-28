@@ -1,0 +1,42 @@
+﻿@if (ProductCategories.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var productCategory in ProductCategories)
+            {
+                <tr>
+                    <td class="align-middle">
+                        @productCategory.Id
+                    </td>
+                    <td class="align-middle">
+                        @productCategory.Name
+                    </td>
+                    <td class="align-middle">
+                        <RadzenButton Variant="Variant.Flat" Shade="Shade.Dark" Click=@(args => RedirectToUpdate(productCategory.Id.ToString())) Text="Update" ButtonStyle="ButtonStyle.Primary" />
+                    </td>
+                    <td class="align-middle">
+                        <RadzenButton Variant="Variant.Flat" Shade="Shade.Dark" Click=@(args => Delete(productCategory.Id.ToString())) Text="Delete" ButtonStyle="ButtonStyle.Danger" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <span>
+        Loading products...
+    </span>
+}
+
+
+
+

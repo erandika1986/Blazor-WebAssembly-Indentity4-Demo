@@ -9,6 +9,7 @@ namespace BlazorWebAssemblyIdentityDemo.Product.Domain.Repositories.Queries.Base
 {
     public interface IQueryRepository<T> where T : class
     {
+        IQueryable<T> GetAllQueryableAsync();
         Task<List<T>> GetAll(CancellationToken cancellationToken);
         Task<T> GetById(int id, CancellationToken cancellationToken);
         Task<IQueryable<T>> Query(Expression<Func<T, bool>> expression);
