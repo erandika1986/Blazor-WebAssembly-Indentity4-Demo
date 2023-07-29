@@ -1,6 +1,7 @@
 ﻿using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Commands.Product.DeleteProduct;
 using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Commands.Product.SaveProduct;
 using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.Product.GetAllProductByProductCategoryId;
+using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.Product.GetProductById;
 using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.ProductCategory.GetAllProductCategories;
 
 using BlazorWebAssemblyIdentityDemo.Shared.DTO.Product;
@@ -21,10 +22,10 @@ namespace BlazorWebAssemblyIdentityDemo.Product.WebApi.Controllers
             this._mediator = mediator;
         }
 
-        [HttpGet("getAllProductByProductCategoryId/{productCategoryId}")]
-        public async Task<IActionResult> GetAllProductByProductCategoryId(int productCategoryId)
-        {
-            var response = await _mediator.Send(new GetAllProductByProductCategoryIdQuery(productCategoryId));
+        [HttpGet("getAllProducts")]
+        public async Task<IActionResult> GetAllProductsByProducts([FromQuery] ProductFilterParam filterParam)
+        { 
+            var response = await _mediator.Send(new GetAllProductsQuery(filterParam));
 
             return Ok(response);
         }
@@ -41,6 +42,14 @@ namespace BlazorWebAssemblyIdentityDemo.Product.WebApi.Controllers
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var response = await _mediator.Send(new DeleteProductCommand(id));
+
+            return Ok(response);
+        }
+
+        [HttpGet("getProductById/{id}")]
+        public async Task<IActionResult> GetProductById(int id)
+        {
+            var response = await _mediator.Send(new GetProductByIdQuery(id));
 
             return Ok(response);
         }

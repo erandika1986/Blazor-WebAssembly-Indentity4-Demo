@@ -8,6 +8,9 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Shared
         private string _modalClass;
         private bool _showBackdrop;
 
+        [Parameter]
+        public string RoutingPath { get; set; }
+
         [Inject]
         public NavigationManager Navigation { get; set; }
 
@@ -25,7 +28,7 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Shared
             _modalClass = "";
             _showBackdrop = false;
             StateHasChanged();
-            Navigation.NavigateTo("/Users");
+            Navigation.NavigateTo(RoutingPath);
         }
     }
 }

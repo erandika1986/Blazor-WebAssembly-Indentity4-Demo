@@ -1,3 +1,41 @@
-﻿<h3>EditProductCategory</h3>
+﻿@page "/editProductCategory/{id}"
 
-@page "/editProductCategory"
+@using BlazorWebAssemblyIdentityDemo.Shared.DTO.ProductCategory
+
+
+<h2>Edit Product Category</h2>
+<div class="container-fluid">
+    <div class="row">
+
+        <RadzenTemplateForm TItem="ProductCategoryDto" Data="_productCategory" Submit=@Update InvalidSubmit=@OnInvalidSubmit>
+
+            <RadzenRow Gap="1rem">
+                <RadzenColumn Size="12" SizeSM="12">
+                    <RadzenStack>
+                        <RadzenFormField Text="Product Category Name" Variant="Variant.Outlined">
+                            <ChildContent>
+                                <RadzenTextBox Name="Name" @bind-Value="@_productCategory.Name" />
+                            </ChildContent>
+                            <Helper>
+                                <RadzenRequiredValidator Component="Name" Text="Product category name is required." Popup="false" />
+                            </Helper>
+                        </RadzenFormField>
+                    </RadzenStack>
+                </RadzenColumn>
+
+
+            </RadzenRow>
+
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <RadzenButton Variant="Variant.Flat" ButtonType="ButtonType.Submit" Shade="Shade.Dark" Text="Add" ButtonStyle="ButtonStyle.Success" />
+                </div>
+            </div>
+        </RadzenTemplateForm>
+
+    </div>
+
+
+</div>
+
+<SuccessNotification @ref="_notification" RoutingPath="/productCategories" />

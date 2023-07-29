@@ -14,10 +14,10 @@
                     <RadzenStack>
                         <RadzenFormField Text="Product Category Name" Variant="Variant.Outlined">
                             <ChildContent>
-                                <RadzenTextBox Name="FirstName" @bind-Value="@_productCategory.Name" />
+                                <RadzenTextBox Name="Name" @bind-Value="@_productCategory.Name" />
                             </ChildContent>
                             <Helper>
-                                <RadzenRequiredValidator Component="FirstName" Text="First name is required." Popup="false" />
+                                <RadzenRequiredValidator Component="Name" Text="Product category name  is required." Popup="false" />
                             </Helper>
                         </RadzenFormField>
                     </RadzenStack>
@@ -38,5 +38,5 @@
 
 </div>
 
-<SuccessNotification @ref="_notification" />
+<SuccessNotification @ref="_notification" RoutingPath="/productCategories" />
 

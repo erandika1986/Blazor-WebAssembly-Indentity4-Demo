@@ -70,13 +70,8 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Services
         {
             try
             {
-                var queryStringParam = new Dictionary<string, string>
-                {
-                    ["id"] = id.ToString(),
-                };
-
                 var httpClient = _clientFactory.CreateClient("productApi");
-                var response = await httpClient.GetAsync(QueryHelpers.AddQueryString("ProductCategory/getProductCategoryById", queryStringParam));
+                var response = await httpClient.GetAsync("ProductCategory/getProductCategoryById/"+id.ToString());
                 var content = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {

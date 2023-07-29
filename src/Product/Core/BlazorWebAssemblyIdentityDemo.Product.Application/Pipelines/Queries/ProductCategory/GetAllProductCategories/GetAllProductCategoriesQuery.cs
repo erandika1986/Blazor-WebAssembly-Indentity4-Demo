@@ -44,7 +44,7 @@ namespace BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.Pr
 
           var response = new PaginatedListDto<ProductCategoryDto>
                 (
-                _mapper.Map<List<ProductCategoryDto>>(productCategories),
+                _mapper.Map<List<ProductCategoryDto>>(paginatedPageCategory),
                 recordCount, 
                 request.FilterParam.CurrentPage, 
                 request.FilterParam.PageSize);
