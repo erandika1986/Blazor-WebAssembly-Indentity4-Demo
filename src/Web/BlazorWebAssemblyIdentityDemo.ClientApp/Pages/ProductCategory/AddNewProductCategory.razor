@@ -1,3 +1,42 @@
 ﻿@page "/addProductCategory"
-<h3>AddNewProductCategory</h3>
+
+@using BlazorWebAssemblyIdentityDemo.Shared.DTO.ProductCategory
+
+
+<h2>Add New Product Category</h2>
+<div class="container-fluid">
+    <div class="row">
+
+        <RadzenTemplateForm TItem="ProductCategoryDto" Data="_productCategory" Submit=@AddProductCategory InvalidSubmit=@OnInvalidSubmit>
+
+            <RadzenRow Gap="1rem">
+                <RadzenColumn Size="12" SizeSM="12">
+                    <RadzenStack>
+                        <RadzenFormField Text="Product Category Name" Variant="Variant.Outlined">
+                            <ChildContent>
+                                <RadzenTextBox Name="FirstName" @bind-Value="@_productCategory.Name" />
+                            </ChildContent>
+                            <Helper>
+                                <RadzenRequiredValidator Component="FirstName" Text="First name is required." Popup="false" />
+                            </Helper>
+                        </RadzenFormField>
+                    </RadzenStack>
+                </RadzenColumn>
+
+       
+            </RadzenRow>
+
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <RadzenButton Variant="Variant.Flat" ButtonType="ButtonType.Submit" Shade="Shade.Dark" Text="Add" ButtonStyle="ButtonStyle.Success" />
+                </div>
+            </div>
+        </RadzenTemplateForm>
+
+    </div>
+
+
+</div>
+
+<SuccessNotification @ref="_notification" />
 

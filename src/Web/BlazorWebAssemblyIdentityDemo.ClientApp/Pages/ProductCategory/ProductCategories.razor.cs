@@ -25,6 +25,10 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Pages.ProductCategory
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+        protected async override Task OnInitializedAsync()
+        {
+            await GetProductCategory();
+        }
 
         private async Task SearchChanged(string searchTerm)
         {
@@ -62,7 +66,7 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Pages.ProductCategory
         }
 
 
-        private async Task DeleteUser(int id)
+        private async Task DeleteProductCategory(int id)
         {
             await ProductCategoryService.DeleteProductCategory(id);
             _productCategoryParameters.CurrentPage = 1;

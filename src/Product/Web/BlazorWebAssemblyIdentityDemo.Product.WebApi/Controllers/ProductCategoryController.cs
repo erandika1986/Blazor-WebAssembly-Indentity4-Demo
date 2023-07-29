@@ -3,6 +3,7 @@ using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Commands.Produ
 using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Commands.ProductCategory.SaveProductCategory;
 using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.ProductCategory.GetAllProductCategories;
 using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.ProductCategory.GetProductCategoryById;
+using BlazorWebAssemblyIdentityDemo.Product.Infrastructure.Repositories.Commands;
 using BlazorWebAssemblyIdentityDemo.Shared.DTO.ProductCategory;
 using BlazorWebAssemblyIdentityDemo.Shared.DTO.User;
 using MediatR;
@@ -28,15 +29,15 @@ namespace BlazorWebAssemblyIdentityDemo.Product.WebApi.Controllers
         }
 
         [HttpPost("saveProductCategory")]
-        public async Task<IActionResult> SaveProductCategory([FromBody] SaveProductCategoryCommand saveCommand)
+        public async Task<IActionResult> SaveProductCategory([FromBody] ProductCategoryDto productCategory)
         {
-            var response = await _mediator.Send(saveCommand);
+            var response = await _mediator.Send(new SaveProductCategoryCommand() { ProductCategory = productCategory });
 
             return Ok(response);
         }
 
 
-        [HttpDelete("deleteProductCategory/{id:number}")]
+        [HttpDelete("deleteProductCategory/{id:int}")]
         public async Task<IActionResult> DeleteProductCategory(int id)
         {
             var response = await _mediator.Send(new DeleteProductCategoryCommand() { Id = id });

@@ -12,7 +12,7 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Components.ProductCategories
         public List<ProductCategoryDto> ProductCategories { get; set; }
 
         [Parameter]
-        public EventCallback<string> OnDeleted { get; set; }
+        public EventCallback<int> OnDeleted { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -29,7 +29,7 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Components.ProductCategories
             NavigationManager.NavigateTo(url);
         }
 
-        private async Task Delete(string id)
+        private async Task Delete(int id)
         {
             var productCategory = ProductCategories.FirstOrDefault(p => p.Id.Equals(id));
 

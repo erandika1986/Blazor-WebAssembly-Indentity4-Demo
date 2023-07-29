@@ -1,5 +1,6 @@
 ﻿@page "/productCategories"
 @using BlazorWebAssemblyIdentityDemo.ClientApp.Components
+@using BlazorWebAssemblyIdentityDemo.ClientApp.Components.ProductCategories
 
 @using Microsoft.AspNetCore.Authorization
 @attribute [Authorize(Roles = "Administrator")]
@@ -20,6 +21,7 @@
     <br />
     <div class="row">
         <div class="col">
+            <ProductCategoryTable ProductCategories="Categories" OnDeleted="DeleteProductCategory" />
         </div>
     </div>
     <div class="row">

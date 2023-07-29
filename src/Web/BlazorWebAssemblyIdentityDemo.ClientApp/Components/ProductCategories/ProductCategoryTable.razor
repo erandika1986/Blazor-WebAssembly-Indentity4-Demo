@@ -23,7 +23,7 @@
                         <RadzenButton Variant="Variant.Flat" Shade="Shade.Dark" Click=@(args => RedirectToUpdate(productCategory.Id.ToString())) Text="Update" ButtonStyle="ButtonStyle.Primary" />
                     </td>
                     <td class="align-middle">
-                        <RadzenButton Variant="Variant.Flat" Shade="Shade.Dark" Click=@(args => Delete(productCategory.Id.ToString())) Text="Delete" ButtonStyle="ButtonStyle.Danger" />
+                        <RadzenButton Variant="Variant.Flat" Shade="Shade.Dark" Click=@(args => Delete(productCategory.Id)) Text="Delete" ButtonStyle="ButtonStyle.Danger" />
                     </td>
                 </tr>
             }
