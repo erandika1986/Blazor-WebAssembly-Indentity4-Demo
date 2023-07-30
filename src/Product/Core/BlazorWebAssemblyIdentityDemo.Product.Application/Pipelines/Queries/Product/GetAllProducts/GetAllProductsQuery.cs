@@ -35,7 +35,7 @@ namespace BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.Pr
             var products = _productQueryRepository
                 .GetAllQueryableAsync()
                 .Search(request.filterParam.SearchTerm)
-                .SearchByProductCategoryId(request.filterParam.SelectedProductCategory);
+                .SearchByProductCategoryId(request.filterParam.SelectedProductCategoryId);
 
             var recordCount = await products.CountAsync();
 

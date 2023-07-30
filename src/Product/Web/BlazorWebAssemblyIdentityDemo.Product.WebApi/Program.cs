@@ -1,5 +1,6 @@
 using BlazorWebAssemblyIdentityDemo.Product.Infrastructure.Data;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +39,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"StaticFiles")),
+    RequestPath = new PathString("/StaticFiles")
+});
+
 app.UseCors("CorsPolicy");
 
 app.UseForwardedHeaders(new ForwardedHeadersOptions

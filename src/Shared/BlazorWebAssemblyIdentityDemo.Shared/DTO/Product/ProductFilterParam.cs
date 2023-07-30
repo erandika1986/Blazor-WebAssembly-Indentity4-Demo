@@ -9,6 +9,6 @@ namespace BlazorWebAssemblyIdentityDemo.Shared.DTO.Product
 {
     public class ProductFilterParam : BaseFilterParams
     {
-        public int SelectedProductCategory { get; set; }
+        public int SelectedProductCategoryId { get; set; }
     }
 }

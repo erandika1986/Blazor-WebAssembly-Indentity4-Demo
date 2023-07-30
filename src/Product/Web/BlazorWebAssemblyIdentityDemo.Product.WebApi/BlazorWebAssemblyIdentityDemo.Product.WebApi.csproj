@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
+    <Folder Include="StaticFiles\Images\" />
   </ItemGroup>
 
 </Project>
