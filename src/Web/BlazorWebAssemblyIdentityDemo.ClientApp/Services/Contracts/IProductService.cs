@@ -10,5 +10,6 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Services
         Task<ResponseDto> DeleteProduct(int id);
         Task<ProductDto> GetProductById(int id);
         Task<string> UploadProductImage(int id, MultipartFormDataContent content);
+        Task<ProductMasterDataDto> GetProductMasterData();
     }
 }

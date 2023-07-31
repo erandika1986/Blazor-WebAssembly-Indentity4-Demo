@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.Product.GetProductById
 {
-    public record GetProductByIdQuery(ProductFilterParam filterParam) : IRequest<ProductDto>
+    public record GetProductByIdQuery(int productId) : IRequest<ProductDto>
     {
     }
 
@@ -30,7 +30,7 @@ namespace BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.Pr
 
         public async Task<ProductDto> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
-            var product = await _productQueryRepository.GetById(request.id, cancellationToken);
+            var product = await _productQueryRepository.GetById(request.productId, cancellationToken);
 
             return _mapper.Map<ProductDto>(product);
         }

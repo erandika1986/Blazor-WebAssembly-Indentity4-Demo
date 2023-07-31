@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace BlazorWebAssemblyIdentityDemo.Shared.DTO.Product
 {
-    public class ProductFilterParam : BaseFilterParams
+    public class ProductMasterDataDto
     {
-        public string SelectedProductCategoryId { get; set; }
+        public ProductMasterDataDto()
+        {
+            ProductCategories = new List<DropDownDto>();
+        }
+
+        public List<DropDownDto> ProductCategories { get; set; }
     }
 }

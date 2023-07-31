@@ -2,6 +2,7 @@
 using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Commands.Product.SaveProduct;
 using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.Product.GetAllProductByProductCategoryId;
 using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.Product.GetProductById;
+using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.Product.GetProductMasterData;
 using BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.ProductCategory.GetAllProductCategories;
 
 using BlazorWebAssemblyIdentityDemo.Shared.DTO.Product;
@@ -51,6 +52,14 @@ namespace BlazorWebAssemblyIdentityDemo.Product.WebApi.Controllers
         public async Task<IActionResult> GetProductById(int id)
         {
             var response = await _mediator.Send(new GetProductByIdQuery(id));
+
+            return Ok(response);
+        }
+
+        [HttpGet("getProductMasterData")]
+        public async Task<IActionResult> GetProductMasterData()
+        {
+            var response = await _mediator.Send(new GetProductMasterDataQuery());
 
             return Ok(response);
         }

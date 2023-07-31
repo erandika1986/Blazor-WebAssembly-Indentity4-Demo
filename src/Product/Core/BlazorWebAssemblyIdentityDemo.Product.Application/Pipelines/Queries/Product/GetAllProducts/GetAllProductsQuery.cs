@@ -32,10 +32,12 @@ namespace BlazorWebAssemblyIdentityDemo.Product.Application.Pipelines.Queries.Pr
 
         public async Task<PaginatedListDto<ProductDto>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
+            var productCategoryId = int.Parse(request.filterParam.SelectedProductCategoryId);
+
             var products = _productQueryRepository
                 .GetAllQueryableAsync()
                 .Search(request.filterParam.SearchTerm)
-                .SearchByProductCategoryId(request.filterParam.SelectedProductCategoryId);
+                .SearchByProductCategoryId(productCategoryId);
 
             var recordCount = await products.CountAsync();
 

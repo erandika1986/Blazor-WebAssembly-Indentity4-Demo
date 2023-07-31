@@ -62,6 +62,28 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Services
             }
         }
 
+        public async Task<ProductMasterDataDto> GetProductMasterData()
+        {
+            try
+            {
+                var httpClient = _clientFactory.CreateClient("productApi");
+                var response = await httpClient.GetAsync("Product/getProductMasterData");
+                var content = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new ApplicationException(content);
+                }
+
+                var responseDto = JsonSerializer.Deserialize<ProductMasterDataDto>(content, _options);
+
+                return responseDto;
+            }
+            catch (Exception ex)
+            {
+                return new ProductMasterDataDto();
+            }
+        }
+
         public async Task<PaginatedListDto<ProductDto>> GetProducts(ProductFilterParam filterParams)
         {
             try
@@ -134,9 +156,11 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Services
             }
             else
             {
-                var imgUrl = Path.Combine("https://localhost:5011/", postContent);
+                var imgUrl = Path.Combine("https://localhost:5002/", postContent);
                 return imgUrl;
             }
         }
+
+
     }
 }
