@@ -65,7 +65,7 @@ namespace BlazorWebAssemblyIdentityDemo.ClientApp.Pages.Product
         }
 
 
-        private async Task DeleteUser(int id)
+        private async Task DeleteProduct(int id)
         {
             await ProductService.DeleteProduct(id);
             _filterParam.CurrentPage = 1;
